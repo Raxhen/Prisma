@@ -1,6 +1,11 @@
 import type { ReactNode } from 'react'
 import {
+  IconAlertTriangle,
   IconCalendarEvent,
+  IconCheck,
+  IconMail,
+  IconPlus,
+  IconSearch,
   IconChartBar,
   IconHeartbeat,
   IconMessageChatbot,
@@ -9,9 +14,10 @@ import {
   IconPill,
   IconStethoscope,
 } from '@tabler/icons-react'
+import { Badge, Button, Card, CardFooter, CardHeader, Input } from './components'
 
-// Todos los valores de esta página son los que trae Tailwind CSS v4 por
-// defecto. Todavía no son los de Prisma.
+// Los valores de las secciones de Tailwind son los que trae Tailwind CSS v4
+// por defecto. Todavía no son los de Prisma.
 
 const colors = [
   'red',
@@ -109,13 +115,116 @@ function Section({ title, children }: { title: string; children: ReactNode }) {
 function App() {
   return (
     <main className="mx-auto max-w-6xl px-6 py-10 text-gray-700">
-      <h1 className="text-4xl font-bold text-gray-900">Tailwind</h1>
+      <h1 className="text-4xl font-bold text-gray-900">Prisma</h1>
       <p className="mt-2">
-        Valores que trae Tailwind CSS v4 por defecto. Todavía no son los de
-        Prisma.
+        Primeros componentes de Prisma y, debajo, los valores que trae Tailwind
+        CSS v4 por defecto.
       </p>
 
-      <Section title="Paleta de color">
+      <Section title="Button">
+        <div className="space-y-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <Button>Primario</Button>
+            <Button variant="secondary">Secundario</Button>
+            <Button variant="ghost">Sutil</Button>
+            <Button variant="danger">Peligro</Button>
+            <Button disabled>Desactivado</Button>
+          </div>
+          <div className="flex flex-wrap items-center gap-3">
+            <Button size="sm">Pequeño</Button>
+            <Button size="md">Mediano</Button>
+            <Button size="lg">Grande</Button>
+            <Button iconLeft={<IconPlus />}>Nueva cita</Button>
+            <Button variant="secondary" iconRight={<IconCheck />}>
+              Marcar como tomada
+            </Button>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Input">
+        <div className="grid max-w-3xl gap-6 sm:grid-cols-2">
+          <Input label="Nombre" placeholder="Escribe tu nombre" />
+          <Input
+            label="Correo electrónico"
+            type="email"
+            icon={<IconMail />}
+            placeholder="nombre@correo.com"
+            hint="Te enviaremos los recordatorios aquí."
+            required
+          />
+          <Input
+            label="Buscar medicamento"
+            icon={<IconSearch />}
+            placeholder="Paracetamol…"
+            size="lg"
+          />
+          <Input
+            label="Fecha de nacimiento"
+            defaultValue="31/02/1990"
+            error="Esta fecha no existe. Revisa el día y el mes."
+          />
+          <Input label="Número de paciente" defaultValue="FH-00231" disabled />
+        </div>
+      </Section>
+
+      <Section title="Card">
+        <div className="grid gap-6 md:grid-cols-3">
+          <Card>
+            <CardHeader
+              icon={<IconPill />}
+              title="Ibuprofeno 600 mg"
+              description="1 comprimido cada 8 horas"
+              action={<Badge variant="success">Tomada</Badge>}
+            />
+            <CardFooter>
+              <Button variant="ghost" size="sm">
+                Ver receta
+              </Button>
+            </CardFooter>
+          </Card>
+          <Card variant="elevated">
+            <CardHeader
+              icon={<IconCalendarEvent />}
+              title="Revisión del dentista"
+              description="Martes 24, 10:30"
+              action={<Badge variant="info">Próxima</Badge>}
+            />
+            <CardFooter>
+              <Button variant="secondary" size="sm">
+                Cambiar
+              </Button>
+              <Button size="sm">Confirmar</Button>
+            </CardFooter>
+          </Card>
+          <Card variant="filled">
+            <CardHeader
+              icon={<IconChartBar />}
+              title="Objetivos del año"
+              description="2 de 3 revisiones hechas"
+            />
+          </Card>
+        </div>
+      </Section>
+
+      <Section title="Badge">
+        <div className="flex flex-wrap items-center gap-3">
+          <Badge>Neutral</Badge>
+          <Badge variant="info">Informativo</Badge>
+          <Badge variant="success" icon={<IconCheck />}>
+            Correcto
+          </Badge>
+          <Badge variant="warning" icon={<IconAlertTriangle />}>
+            Aviso
+          </Badge>
+          <Badge variant="danger">Problema</Badge>
+          <Badge variant="success" size="sm">
+            Pequeño
+          </Badge>
+        </div>
+      </Section>
+
+      <Section title="Paleta de color (Tailwind)">
         <div className="overflow-x-auto">
           <div className="min-w-3xl space-y-2">
             <div className="flex items-end gap-2 text-xs text-gray-500">
@@ -144,7 +253,7 @@ function App() {
         </div>
       </Section>
 
-      <Section title="Espaciado">
+      <Section title="Espaciado (Tailwind)">
         <div className="space-y-2">
           {spacing.map((step) => (
             <div key={step} className="flex items-center gap-4">
@@ -160,7 +269,7 @@ function App() {
         </div>
       </Section>
 
-      <Section title="Radios">
+      <Section title="Radios (Tailwind)">
         <div className="flex flex-wrap gap-6">
           {radii.map(({ name, value }) => (
             <div key={name} className="text-center">
@@ -174,7 +283,7 @@ function App() {
         </div>
       </Section>
 
-      <Section title="Tamaños de texto">
+      <Section title="Tamaños de texto (Tailwind)">
         <div className="space-y-4">
           {textSizes.map(({ name, value }) => (
             <div key={name} className="flex items-baseline gap-4">
