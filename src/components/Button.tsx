@@ -17,7 +17,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition-colors ' +
+  'inline-flex items-center justify-center gap-2 rounded-lg text-center font-medium transition-colors ' +
   'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-600 ' +
   'disabled:cursor-not-allowed disabled:opacity-50'
 
@@ -30,9 +30,10 @@ const variants: Record<ButtonVariant, string> = {
 }
 
 const sizes: Record<ButtonSize, string> = {
-  sm: 'h-8 px-3 text-sm [&_svg]:size-4',
-  md: 'h-10 px-4 text-base [&_svg]:size-5',
-  lg: 'h-12 px-6 text-lg [&_svg]:size-6',
+  // Altura mínima (y no fija) para que un texto largo no se salga del botón.
+  sm: 'min-h-9 px-3 py-1.5 text-sm [&_svg]:size-4',
+  md: 'min-h-11 px-4 py-2 text-base [&_svg]:size-5',
+  lg: 'min-h-12 px-6 py-2.5 text-lg [&_svg]:size-6',
 }
 
 export function Button({

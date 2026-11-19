@@ -31,15 +31,17 @@ export function Input({
   size = 'md',
   id,
   className = '',
+  'aria-describedby': extraDescribedBy,
   ...rest
 }: InputProps) {
   const autoId = useId()
-  const inputId = id ?? autoId
+  const inputId = id || autoId
   const hintId = `${inputId}-hint`
   const errorId = `${inputId}-error`
   const describedBy =
-    [error ? errorId : null, hint ? hintId : null].filter(Boolean).join(' ') ||
-    undefined
+    [error ? errorId : null, hint ? hintId : null, extraDescribedBy]
+      .filter(Boolean)
+      .join(' ') || undefined
 
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
@@ -59,11 +61,12 @@ export function Input({
           </span>
         )}
         <input
+          {...rest}
           id={inputId}
-          aria-invalid={error ? true : undefined}
+          aria-invalid={error ? true : rest['aria-invalid']}
           aria-describedby={describedBy}
           className={
-            `w-full rounded-lg border bg-white px-3 text-gray-900 placeholder:text-gray-400 ` +
+            `w-full rounded-lg border bg-white px-3 text-gray-900 placeholder:text-gray-500 ` +
             `focus:outline-2 focus:outline-offset-0 ` +
             `disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-500 ` +
             `${sizes[size]} ${icon ? 'pl-10' : ''} ` +
@@ -71,7 +74,6 @@ export function Input({
               ? 'border-red-600 focus:outline-red-600'
               : 'border-gray-300 focus:border-teal-600 focus:outline-teal-600')
           }
-          {...rest}
         />
       </div>
 
