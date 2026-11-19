@@ -2,6 +2,11 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import { IconCheck, IconPlus, IconTrash } from '@tabler/icons-react'
 import { Button } from './Button'
 
+/**
+ * Botón con esquinas totalmente redondeadas. Los colores tienen al menos 4,5:1
+ * de contraste con el texto: blanco sobre `emerald-700` (5,4:1) en `primary` y
+ * blanco sobre `red-600` (4,8:1) en `danger`.
+ */
 const meta = {
   title: 'Componentes/Button',
   component: Button,
@@ -78,6 +83,18 @@ export const ConIconos: Story = {
       </Button>
     </div>
   ),
+}
+
+/** Un texto largo en un hueco estrecho: el botón crece en vez de cortar el texto. */
+export const TextoLargo: Story = {
+  args: { children: 'Marcar todas las tomas de hoy como hechas' },
+  decorators: [
+    (Story) => (
+      <div className="w-56">
+        <Story />
+      </div>
+    ),
+  ],
 }
 
 export const Desactivado: Story = {

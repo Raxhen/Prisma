@@ -32,7 +32,7 @@ export function Card({
 }: CardProps) {
   return (
     <div
-      className={`rounded-2xl ${variants[variant]} ${paddings[padding]} ${className}`}
+      className={`min-w-0 rounded-2xl ${variants[variant]} ${paddings[padding]} ${className}`}
       {...rest}
     >
       {children}
@@ -61,16 +61,24 @@ export function CardHeader({
   ...rest
 }: CardHeaderProps) {
   return (
-    <div className={`flex items-start gap-3 ${className}`} {...rest}>
+    // flex-wrap: si no hay sitio, la etiqueta de la derecha (action) baja a otra línea
+    // en vez de montarse sobre el título.
+    <div className={`flex flex-wrap items-start gap-3 ${className}`} {...rest}>
       {icon && (
         <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-teal-100 text-teal-800 [&_svg]:size-5">
           {icon}
         </span>
       )}
-      <div className="min-w-0 flex-1">
-        <h3 className="text-lg font-semibold text-gray-900">{title}</h3>
+      {/* basis-24: el texto necesita al menos 6rem; hyphens-auto y wrap-anywhere: las palabras
+          largas se parten (con guion si se puede) en vez de salirse de la tarjeta. */}
+      <div className="min-w-0 flex-1 basis-24 hyphens-auto">
+        <h3 className="text-lg font-semibold wrap-anywhere text-gray-900">
+          {title}
+        </h3>
         {description && (
-          <p className="mt-0.5 text-sm text-gray-600">{description}</p>
+          <p className="mt-0.5 text-sm wrap-anywhere text-gray-600">
+            {description}
+          </p>
         )}
       </div>
       {action && <div className="shrink-0">{action}</div>}
