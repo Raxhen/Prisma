@@ -21,3 +21,15 @@ Prisma reúne los fundamentos visuales (colores, tipografía, espaciados, iconos
 - **Ramas y PR:** cada cambio va en su propia rama y se propone con una pull request. No subas nada directamente a `main`.
 - **Explicaciones sin jerga:** explica qué has cambiado y por qué con palabras sencillas, como si lo contaras a alguien que no programa. Si un término técnico es imprescindible, explícalo en una frase.
 - **Dependencias:** si cambias `package.json`, actualiza también `package-lock.json` (con `npm install`) e incluye los dos archivos en la misma PR.
+
+## Decisiones
+
+Las decisiones del design system se escriben como ADR, documentos cortos que explican qué se decidió y por qué. Viven en [`docs/adr/`](docs/adr/).
+
+- **Léelas antes de proponer cualquier cambio** que afecte al alcance de Prisma o a sus principios.
+- **Nunca las contradigas sin escribir un ADR nuevo** que explique el cambio y por qué. Si una tarea pide algo que choca con un ADR, avisa antes de hacerlo.
+- **Cada ADR nuevo se apunta en la lista de abajo**, en la misma PR que lo crea.
+
+| ADR | Qué decide |
+|---|---|
+| [ADR-001 · Alcance y principios](docs/adr/001-alcance.md) | Qué productos cubre Prisma, que el color principal es `emerald` y los cinco principios que debe cumplir todo: tokens, componentes en vez de copias, accesibilidad (AA, y 7:1 en la información médica), modo claro y oscuro, y un nombre para cada significado. |
