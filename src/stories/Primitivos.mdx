@@ -1,0 +1,78 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../tokens/tokens.json'
+import {
+  Barras,
+  Bordes,
+  Breakpoints,
+  Colores,
+  Familias,
+  Interlineados,
+  Pesos,
+  Radios,
+  Sombras,
+  TamanosTexto,
+} from './PrimitivosVistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Primitivos" />
+
+export const p = tokens.primitive
+
+# Primitivos
+
+Los **tokens primitivos** son los valores base de Prisma: todos los colores, medidas y tipografías disponibles, con un nombre neutro (`gray.500`, `spacing.400`…) que dice **qué valor es**, no para qué sirve. Los componentes no los usarán directamente: los usará la capa semántica (`primary`, `danger`…), que vendrá después.
+
+Todo lo que ves aquí sale de `tokens/tokens.json`. Casi todo está copiado de Tailwind CSS v4. Lo único propio de Prisma es la escala **`color.brand`**, generada a partir de `#007A55`, y la tipografía **Atkinson Hyperlegible Next** en `font-family.sans`.
+
+## Color
+
+Escalas del 50 (el más claro) al 950 (el más oscuro). Cada muestra enseña su nombre, su hex y su valor en `oklch`, el formato en que lo define Tailwind.
+
+<Colores grupo={p.color} />
+
+## Espaciado
+
+`100` son 4 px. Cada barra mide lo que vale el token.
+
+<Barras grupo={p.spacing} prefijo="spacing" />
+
+## Radios
+
+<Radios grupo={p.radius} />
+
+## Tipografía
+
+### Familias
+
+<Familias grupo={p['font-family']} />
+
+### Tamaños
+
+<TamanosTexto grupo={p['font-size']} />
+
+### Pesos
+
+<Pesos grupo={p['font-weight']} />
+
+### Interlineados
+
+Misma escala que el espaciado, en rem: `400` son 1 rem (16 px). Las líneas azules marcan la altura de cada línea de texto.
+
+<Interlineados grupo={p['line-height']} />
+
+## Grosores de borde
+
+<Bordes grupo={p['border-width']} />
+
+## Sombras
+
+Solo las piezas: desplazamiento, difuminado y color. Las sombras completas se montarán en la capa semántica.
+
+<Sombras grupo={p.shadow} />
+
+## Breakpoints
+
+Anchos de pantalla a partir de los que cambia la colocación. Cada barra es proporcional al más ancho.
+
+<Breakpoints grupo={p.breakpoint} />

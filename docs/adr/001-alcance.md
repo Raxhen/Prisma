@@ -6,6 +6,8 @@
 
 *Revisado el 23 de noviembre de 2026: los cinco principios se han reescrito para que se puedan comprobar, y se ha añadido una tabla con cómo se comprueba cada uno.*
 
+*Revisado el 24 de noviembre de 2026: los tokens pasan de la carpeta `src/tokens/` al archivo `tokens/tokens.json`, en la raíz del proyecto, porque no son solo de la web: también los usarán la app móvil y la herramienta para profesionales.*
+
 Un ADR (*Architecture Decision Record*) es un documento corto que deja por escrito una decisión importante y por qué se tomó. Este es el primero de Prisma: dice qué cubre el design system y qué reglas tiene que cumplir todo lo que se haga con él.
 
 ## Contexto
@@ -65,7 +67,7 @@ Además, Prisma va a tener que servir para más de un producto y para informaci�
 Cinco reglas que debe cumplir todo lo que entre en Prisma. Están escritas para que cualquiera, sea una persona o un agente de IA, pueda decir **sí cumple** o **no cumple** sin depender de gustos.
 
 **P1 · Todo valor visual sale de un token.**
-Los tokens de color, radio, sombra, tamaño de texto y tamaño de icono viven en una sola carpeta, `src/tokens/`, y cada uno tiene un nombre que dice para qué sirve, como `primary`, `danger` o `radius-control`.
+Los tokens de color, radio, sombra, tamaño de texto y tamaño de icono viven en un solo archivo, `tokens/tokens.json`, en la raíz del proyecto, y cada uno tiene un nombre que dice para qué sirve, como `primary`, `danger` o `radius-control`.
 - Los componentes y las pantallas solo usan clases hechas con esos nombres, como `bg-primary` o `rounded-control`.
 - Los espacios usan la escala de Tailwind (`p-4`, `gap-2`…), que sale de un único token, `--spacing`.
 - No se permite escribir colores de la paleta de Tailwind (`emerald-700`, `gray-600`…), colores hex (`#0E7C86`) ni valores inventados entre corchetes (`[80%]`, `[13px]`).
@@ -99,16 +101,16 @@ Para estas cinco cosas, todos los componentes usan las mismas palabras. Si hace 
 
 **No se permiten sinónimos** de estas palabras: `padding` o `scale` por `size`; `destructive` o `error` como valor de `variant`; `leftIcon`, `iconLeft` o `startIcon` por `icon` con `iconPosition`.
 
-**Los tokens no dependen de Tailwind.** Como Prisma también servirá para la futura app móvil nativa, los tokens de `src/tokens/` se guardan en un formato que se pueda usar fuera de la web. Tailwind los lee, pero no es su origen.
+**Los tokens no dependen de Tailwind.** Como Prisma también servirá para la futura app móvil nativa, `tokens/tokens.json` está fuera de `src/`, la carpeta de la web, y usa el formato estándar DTCG (*Design Tokens Community Group*), que se puede usar fuera de la web. Tailwind los lee, pero no es su origen.
 
 #### Cómo se comprobará cada principio
 
 | Principio | Revisando el código | Mirándolo en Storybook |
 |---|---|---|
-| **P1** · Todo valor visual sale de un token | ✅ Una búsqueda en `src/components/` y `src/screens/` no encuentra colores de la paleta (como `-emerald-700` o `-gray-600`), ni `#` seguido de un color, ni corchetes con un número o porcentaje (como `[80%]` o `[13px]`). Cada clase de color, radio, sombra y texto usa un nombre definido en `src/tokens/`. | — |
+| **P1** · Todo valor visual sale de un token | ✅ Una búsqueda en `src/components/` y `src/screens/` no encuentra colores de la paleta (como `-emerald-700` o `-gray-600`), ni `#` seguido de un color, ni corchetes con un número o porcentaje (como `[80%]` o `[13px]`). Cada clase de color, radio, sombra y texto usa un nombre definido en `tokens/tokens.json`. | — |
 | **P2** · Las pantallas usan componentes, no los copian | ✅ En `src/screens/` no hay clases de color (`bg-`, `text-` con color, `border-` con color), de radio (`rounded-`) ni de sombra (`shadow-`). Cada componente de `src/components/` tiene su archivo `.stories.tsx` y su fila en `docs/componentes.md`. | ✅ Cada componente aparece en el menú de Storybook y en la página **Status**. |
-| **P3** · Accesible, y 7:1 en la información médica | ✅ Las dosis, los resultados y las fechas de citas usan `text-strong`. La tabla de contrastes de `src/tokens/` da al menos 7:1 para `text-strong` y 4,5:1 para el resto de textos, en los dos modos. Los botones, campos y enlaces tienen una altura mínima de 44 px (`min-h-11` o más). | ✅ La pestaña **Accessibility** no muestra fallos en ninguna historia. Recorriendo cada historia con **Tab**, todos los elementos se alcanzan y se ve su contorno de foco. |
-| **P4** · Modo claro y modo oscuro | ✅ Cada token de color de `src/tokens/` tiene valor claro y oscuro. Ningún componente usa clases `dark:`. | ✅ Con el selector de modo de Storybook, la pestaña **Accessibility** no muestra fallos en ninguna historia, ni en modo claro ni en modo oscuro. |
+| **P3** · Accesible, y 7:1 en la información médica | ✅ Las dosis, los resultados y las fechas de citas usan `text-strong`. La tabla de contrastes de `tokens/tokens.json` da al menos 7:1 para `text-strong` y 4,5:1 para el resto de textos, en los dos modos. Los botones, campos y enlaces tienen una altura mínima de 44 px (`min-h-11` o más). | ✅ La pestaña **Accessibility** no muestra fallos en ninguna historia. Recorriendo cada historia con **Tab**, todos los elementos se alcanzan y se ve su contorno de foco. |
+| **P4** · Modo claro y modo oscuro | ✅ Cada token de color de `tokens/tokens.json` tiene valor claro y oscuro. Ningún componente usa clases `dark:`. | ✅ Con el selector de modo de Storybook, la pestaña **Accessibility** no muestra fallos en ninguna historia, ni en modo claro ni en modo oscuro. |
 | **P5** · Un nombre, un significado | ✅ En los tipos de las props de cada componente, el aspecto, el tamaño, el icono, su posición y el error se eligen con las palabras y los valores de la tabla de P5, sin sinónimos. Si aparece una palabra nueva, esa misma PR la añade a la tabla. | ✅ En el panel de controles de cada historia, `variant`, `size` e `iconPosition` solo ofrecen valores de la tabla. |
 
 ### 4. Cómo se decide un cambio
