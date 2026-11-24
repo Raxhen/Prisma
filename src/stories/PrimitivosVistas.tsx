@@ -1,5 +1,5 @@
 // Piezas visuales de la página Fundamentos/Primitivos de Storybook.
-// Solo pintan lo que reciben de src/tokens/tokens.json: no guardan ningún valor propio.
+// Solo pintan lo que reciben de tokens/tokens.json: no guardan ningún valor propio.
 import type { CSSProperties, ReactNode } from 'react'
 
 type Dimension = { value: number; unit: string }
