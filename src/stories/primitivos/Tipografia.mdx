@@ -1,0 +1,31 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../../tokens/tokens.json'
+import { Familias, Interlineados, Pesos, TamanosTexto } from './Vistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Primitivos/Tipografía" />
+
+export const p = tokens.primitive
+
+# Tipografía
+
+## Familias
+
+`sans` es la tipografía de la marca, **Atkinson Hyperlegible Next**, diseñada para que cada letra se distinga bien, incluso con baja visión. Fíjate en `Il1` y `O0`. `mono` es la de ancho fijo, para códigos y datos alineados.
+
+<Familias grupo={p['font-family']} />
+
+## Tamaños
+
+<TamanosTexto grupo={p['font-size']} />
+
+## Pesos
+
+<Pesos grupo={p['font-weight']} />
+
+## Interlineados
+
+La altura de cada línea de texto. Usa la misma escala que el espaciado, en rem: `400` son 1 rem (16 px). Las líneas azules marcan la altura de cada línea.
+
+<Interlineados grupo={p['line-height']} />

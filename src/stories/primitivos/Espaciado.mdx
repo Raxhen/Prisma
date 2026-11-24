@@ -1,0 +1,13 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../../tokens/tokens.json'
+import { Barras } from './Vistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Primitivos/Espaciado" />
+
+# Espaciado
+
+Distancias para rellenos, márgenes y separaciones. `100` son 4 px, así que `400` son 16 px. Cada barra mide lo que vale el token.
+
+<Barras grupo={tokens.primitive.spacing} prefijo="spacing" />

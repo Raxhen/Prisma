@@ -1,0 +1,23 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Primitivos/Introducción" />
+
+# Primitivos
+
+Los **tokens primitivos** son los valores base de Prisma: todos los colores, medidas y tipografías disponibles, con un nombre neutro (`gray.500`, `spacing.400`…) que dice **qué valor es**, no para qué sirve. Los componentes no los usarán directamente: los usará la capa semántica (`primary`, `danger`…), que vendrá después.
+
+Todo sale de `tokens/tokens.json`. Casi todo está copiado de Tailwind CSS v4. Lo único propio de Prisma es la escala **`color.brand`**, generada a partir de `#007A55`, y la tipografía **Atkinson Hyperlegible Next** en `font-family.sans`.
+
+## Páginas
+
+| Página | Qué enseña |
+|---|---|
+| **Color** | Las escalas `gray`, `blue`, `red`, `orange`, `green` y `brand`, del 50 al 950 |
+| **Espaciado** | La escala de distancias: `100` son 4 px |
+| **Radios** | Lo redondeadas que se ven las esquinas |
+| **Tipografía** | Familias, tamaños, pesos e interlineados |
+| **Bordes** | Los grosores de borde |
+| **Sombras** | Las piezas para montar sombras: desplazamiento, difuminado y color |
+| **Breakpoints** | Los anchos de pantalla a partir de los que cambia la colocación |

@@ -1,0 +1,13 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../../tokens/tokens.json'
+import { Breakpoints } from './Vistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Primitivos/Breakpoints" />
+
+# Breakpoints
+
+Anchos de pantalla a partir de los que cambia la colocación: por ejemplo, de una columna en el móvil a dos en una tableta. Cada barra es proporcional al más ancho.
+
+<Breakpoints grupo={tokens.primitive.breakpoint} />
