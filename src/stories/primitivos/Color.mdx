@@ -1,0 +1,15 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../../tokens/tokens.json'
+import { Colores } from './Vistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Primitivos/Color" />
+
+# Color
+
+Escalas del 50 (el más claro) al 950 (el más oscuro). Cada muestra enseña su nombre, su hex y su valor en `oklch`, el formato en que lo define Tailwind.
+
+Todas están copiadas de Tailwind menos **`brand`**, la escala de la marca FullHealth, generada a partir de `#007A55` (su paso 700).
+
+<Colores grupo={tokens.primitive.color} />

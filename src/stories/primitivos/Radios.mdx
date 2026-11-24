@@ -1,0 +1,13 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../../tokens/tokens.json'
+import { Radios } from './Vistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Primitivos/Radios" />
+
+# Radios
+
+Lo redondeadas que se ven las esquinas. Usa la misma escala que el espaciado (`100` son 4 px). `full` redondea del todo: un cuadrado se convierte en círculo y un botón, en píldora.
+
+<Radios grupo={tokens.primitive.radius} />
