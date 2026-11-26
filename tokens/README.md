@@ -82,10 +82,37 @@ Los valores de `role` son los mismos que la tabla de P5 del ADR-001, para que el
 Siguen la misma fórmula, pero `category` es **el nombre del componente**:
 
 ```
-component.[componente].[element].[role].[modifier].[state]
+component.[componente].[parte].[element].[role].[modifier].[state]
 ```
 
-Por ejemplo, `component.button.background.primary.default.hover` o `component.input.border.neutral.default.rest`.
+- **`parte`** es la pieza del componente a la que se aplica, como `label` o `hint` en Input, o `title` y `footer` en Card.
+  - **Solo se escribe cuando el componente tiene más de una pieza.** La pieza principal (la caja del botón, del campo, de la tarjeta) no lleva parte: `component.input.border…`, pero `component.input.label.text…`.
+  - Las partes no pueden llamarse como un `element` ni como una categoría, para que no se confundan.
+- **`role`** es el valor de `variant` del componente, con las palabras de la tabla de P5 del ADR-001:
+  - además de los roles de arriba, aquí valen `secondary`, `ghost`, `outlined`, `elevated` y `filled`;
+  - así, `variant="ghost"` usa `component.button.…ghost…`;
+  - si el componente no tiene variantes de color, se usa el rol del semántico al que apunta, como `neutral` o `primary`.
+- **`modifier`** es `default` mientras el componente no tenga variantes de intensidad.
+- **`state`** solo se escribe para los estados que cambian algo. Si el botón sutil no tiene fondo en reposo, no hay `…ghost.default.rest` de fondo.
+
+Por ejemplo:
+- `component.button.background.primary.default.hover`;
+- `component.button.icon.primary.default.rest`;
+- `component.input.label.text.neutral.default.rest`.
+
+Los tokens de componente que **no son de color** ponen la categoría después del componente (y de la parte, si la hay), y después su uso o su talla:
+
+```
+component.[componente].[parte].[category].[uso o talla]
+```
+
+Por ejemplo:
+- `component.button.spacing.padding-x.md`;
+- `component.button.radius.default`;
+- `component.card.title.font-size.default`;
+- `component.card.shadow.elevated`.
+
+Así cada grupo tiene un solo `$type`.
 
 ### Los primitivos
 
@@ -186,8 +213,8 @@ Solo los **semánticos de color** llevan modo oscuro. Los primitivos no cambian 
   },
   "component": {
     "button": {
-      "$type": "color",
       "background": {
+        "$type": "color",
         "primary": {
           "default": {
             "rest": {
@@ -234,4 +261,4 @@ Solo los **semánticos de color** llevan modo oscuro. Los primitivos no cambian 
 
 - **`primitive`:** existe y cumple el manual: cada token tiene su `$value` y su `$description`.
 - **`semantic`:** existe. Cumple el manual: cada token tiene `$description`, es un alias a un primitivo y, si es de color, tiene sus cinco partes y su valor de modo oscuro. Se ve en Storybook, en **Fundamentos → Semánticos**.
-- **`component`:** todavía no existe. Se creará cuando los componentes pasen a usar tokens.
+- **`component`:** existe. Tiene los tokens de Button, Input, Card y Badge. Cada uno es un alias a un semántico y tiene su `$description`. Se ve en Storybook, en **Fundamentos → Semánticos**, sección «Tokens de componente». Los componentes todavía no los usan: siguen con las clases de Tailwind escritas a mano.

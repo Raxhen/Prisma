@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/addon-docs/blocks'
 import tokens from '../../tokens/tokens.json'
-import { Bordes, Colores, Espaciado, Radios, Sombras, Tipografia } from './SemanticosVistas'
+import { Bordes, Colores, Componente, Espaciado, Radios, Sombras, Tipografia } from './SemanticosVistas'
 
 {/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
 
@@ -67,3 +67,25 @@ Seis estilos de texto. Cada uno junta un tamaño, una altura de línea y un peso
 Cada sombra se monta con las piezas de `primitive.shadow`: desplazamiento hacia abajo, difuminado y color.
 
 <Sombras root={tokens} />
+
+## Tokens de componente
+
+Cada componente de `src/components/` tiene sus propios tokens, y cada uno es un alias a un token **semántico**, nunca a un primitivo. Debajo de cada nombre verás el semántico al que apunta (→) y, en la línea siguiente, el primitivo al que llega al final. En los colores, la muestra tiene dos mitades: modo claro y modo oscuro.
+
+Los componentes todavía no usan estos tokens: siguen con las clases de Tailwind escritas a mano.
+
+### Button
+
+<Componente root={tokens} name="button" />
+
+### Input
+
+<Componente root={tokens} name="input" />
+
+### Card
+
+<Componente root={tokens} name="card" />
+
+### Badge
+
+<Componente root={tokens} name="badge" />
