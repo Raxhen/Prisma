@@ -232,6 +232,6 @@ Solo los **semánticos de color** llevan modo oscuro. Los primitivos no cambian 
 
 ## Estado actual
 
-- **`primitive`:** existe. Todavía **no cumple del todo** este manual, porque la mayoría de sus tokens no tienen `$description`: se crearon antes que el manual. Se completarán en una PR aparte.
+- **`primitive`:** existe y cumple el manual: cada token tiene su `$value` y su `$description`.
 - **`semantic`:** existe. Cumple el manual: cada token tiene `$description`, es un alias a un primitivo y, si es de color, tiene sus cinco partes y su valor de modo oscuro. Se ve en Storybook, en **Fundamentos → Semánticos**.
 - **`component`:** todavía no existe. Se creará cuando los componentes pasen a usar tokens.
