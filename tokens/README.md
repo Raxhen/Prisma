@@ -232,4 +232,6 @@ Solo los **semánticos de color** llevan modo oscuro. Los primitivos no cambian 
 
 ## Estado actual
 
-`tokens.json` solo tiene, por ahora, el nivel **primitivo**. Ese nivel todavía **no cumple del todo** este manual: la mayoría de sus tokens no tienen `$description`, porque se crearon antes que el manual. Se completarán en una PR aparte, antes de crear el nivel semántico.
+- **`primitive`:** existe. Todavía **no cumple del todo** este manual, porque la mayoría de sus tokens no tienen `$description`: se crearon antes que el manual. Se completarán en una PR aparte.
+- **`semantic`:** existe. Cumple el manual: cada token tiene `$description`, es un alias a un primitivo y, si es de color, tiene sus cinco partes y su valor de modo oscuro. Se ve en Storybook, en **Fundamentos → Semánticos**.
+- **`component`:** todavía no existe. Se creará cuando los componentes pasen a usar tokens.

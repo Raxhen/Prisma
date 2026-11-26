@@ -1,0 +1,69 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../tokens/tokens.json'
+import { Bordes, Colores, Espaciado, Radios, Sombras, Tipografia } from './SemanticosVistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Semánticos" />
+
+# Semánticos
+
+Los **tokens semánticos** dicen **para qué sirve** cada valor: el fondo de la acción principal, el texto de la información médica, el borde de un campo… Cada uno es un **alias** a un primitivo: aquí verás su nombre, la flecha (→) al primitivo al que apunta y el valor que sale.
+
+Son los que usarán los componentes. Cómo se nombran y se construyen está en `tokens/README.md`.
+
+## Color
+
+Los colores se nombran con esta fórmula:
+
+```
+[category].[element].[role].[modifier].[state]
+```
+
+Cada uno tiene un valor para el **modo claro** y otro para el **modo oscuro**, y cada muestra enseña los dos.
+
+En los textos, iconos, bordes y foco aparece el **contraste** con su fondo. El mínimo es 4,5:1 en el texto, 3:1 en iconos, bordes y foco, y 7:1 en `text.neutral.strong`, el de la información médica. `border.neutral.default` es solo decorativo: para los campos se usa `border.neutral.strong`.
+
+### Fondos
+
+<Colores root={tokens} element="background" />
+
+### Textos
+
+<Colores root={tokens} element="text" />
+
+### Iconos
+
+<Colores root={tokens} element="icon" />
+
+### Bordes
+
+<Colores root={tokens} element="border" />
+
+### Foco
+
+<Colores root={tokens} element="focus" />
+
+## Tipografía
+
+Seis estilos de texto. Cada uno junta un tamaño, una altura de línea y un peso. La altura de línea siempre es un alias a la escala de `line-height`, nunca una proporción.
+
+<Tipografia root={tokens} />
+
+## Espaciado
+
+<Espaciado root={tokens} />
+
+## Radios
+
+<Radios root={tokens} />
+
+## Grosores de borde
+
+<Bordes root={tokens} />
+
+## Sombras
+
+Cada sombra se monta con las piezas de `primitive.shadow`: desplazamiento hacia abajo, difuminado y color.
+
+<Sombras root={tokens} />

@@ -27,6 +27,7 @@ const preview: Preview = {
               'Sombras',
               'Breakpoints',
             ],
+            'Semánticos',
           ],
           'Componentes',
         ],
