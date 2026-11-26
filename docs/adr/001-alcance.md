@@ -8,6 +8,8 @@
 
 *Revisado el 24 de noviembre de 2026: los tokens pasan de la carpeta `src/tokens/` al archivo `tokens/tokens.json`, en la raíz del proyecto, porque no son solo de la web: también los usarán la app móvil y la herramienta para profesionales.*
 
+*Revisado el 26 de noviembre de 2026: el token de la información médica se llama `semantic.color.text.neutral.strong.rest`, según el manual de tokens (`tokens/README.md`). Antes se llamaba `text-strong`.*
+
 Un ADR (*Architecture Decision Record*) es un documento corto que deja por escrito una decisión importante y por qué se tomó. Este es el primero de Prisma: dice qué cubre el design system y qué reglas tiene que cumplir todo lo que se haga con él.
 
 ## Contexto
@@ -80,7 +82,7 @@ Los tokens de color, radio, sombra, tamaño de texto y tamaño de icono viven en
 
 **P3 · Accesible para todo el mundo, más aún con la información médica.**
 - **Contraste:** todo cumple **WCAG 2.2 AA**, es decir, al menos 4,5:1 en el texto y 3:1 en iconos, bordes de campos y contornos de foco.
-- **Información médica:** son las dosis y pautas de medicación, los resultados y valores de análisis, y las fechas y horas de citas. Se muestran **siempre con el token de texto `text-strong`**, que tiene al menos **7:1 (AAA)** sobre cualquier fondo de Prisma.
+- **Información médica:** son las dosis y pautas de medicación, los resultados y valores de análisis, y las fechas y horas de citas. Se muestran **siempre con el token de texto `semantic.color.text.neutral.strong.rest`**, que tiene al menos **7:1 (AAA)** sobre cualquier fondo de Prisma.
 - **Teclado:** cada botón, campo y enlace se alcanza con la tecla **Tab** y muestra un **contorno de foco visible**.
 - **Tamaño:** cada botón, campo y enlace mide al menos **44 × 44 px**.
 
@@ -109,7 +111,7 @@ Para estas cinco cosas, todos los componentes usan las mismas palabras. Si hace 
 |---|---|---|
 | **P1** · Todo valor visual sale de un token | ✅ Una búsqueda en `src/components/` y `src/screens/` no encuentra colores de la paleta (como `-emerald-700` o `-gray-600`), ni `#` seguido de un color, ni corchetes con un número o porcentaje (como `[80%]` o `[13px]`). Cada clase de color, radio, sombra y texto usa un nombre definido en `tokens/tokens.json`. | — |
 | **P2** · Las pantallas usan componentes, no los copian | ✅ En `src/screens/` no hay clases de color (`bg-`, `text-` con color, `border-` con color), de radio (`rounded-`) ni de sombra (`shadow-`). Cada componente de `src/components/` tiene su archivo `.stories.tsx` y su fila en `docs/componentes.md`. | ✅ Cada componente aparece en el menú de Storybook y en la página **Status**. |
-| **P3** · Accesible, y 7:1 en la información médica | ✅ Las dosis, los resultados y las fechas de citas usan `text-strong`. La tabla de contrastes de `tokens/tokens.json` da al menos 7:1 para `text-strong` y 4,5:1 para el resto de textos, en los dos modos. Los botones, campos y enlaces tienen una altura mínima de 44 px (`min-h-11` o más). | ✅ La pestaña **Accessibility** no muestra fallos en ninguna historia. Recorriendo cada historia con **Tab**, todos los elementos se alcanzan y se ve su contorno de foco. |
+| **P3** · Accesible, y 7:1 en la información médica | ✅ Las dosis, los resultados y las fechas de citas usan `semantic.color.text.neutral.strong.rest`. La tabla de contrastes de `tokens/tokens.json` da al menos 7:1 para `semantic.color.text.neutral.strong.rest` y 4,5:1 para el resto de textos, en los dos modos. Los botones, campos y enlaces tienen una altura mínima de 44 px (`min-h-11` o más). | ✅ La pestaña **Accessibility** no muestra fallos en ninguna historia. Recorriendo cada historia con **Tab**, todos los elementos se alcanzan y se ve su contorno de foco. |
 | **P4** · Modo claro y modo oscuro | ✅ Cada token de color de `tokens/tokens.json` tiene valor claro y oscuro. Ningún componente usa clases `dark:`. | ✅ Con el selector de modo de Storybook, la pestaña **Accessibility** no muestra fallos en ninguna historia, ni en modo claro ni en modo oscuro. |
 | **P5** · Un nombre, un significado | ✅ En los tipos de las props de cada componente, el aspecto, el tamaño, el icono, su posición y el error se eligen con las palabras y los valores de la tabla de P5, sin sinónimos. Si aparece una palabra nueva, esa misma PR la añade a la tabla. | ✅ En el panel de controles de cada historia, `variant`, `size` e `iconPosition` solo ofrecen valores de la tabla. |
 
@@ -145,7 +147,6 @@ Según la auditoría, hoy Prisma **no cumple** estos principios en varios puntos
 | P2 | Faltan componentes que la pantalla tuvo que inventar: cabecera de pantalla, estado vacío, burbuja de mensaje y divisor. | `src/screens/antes.tsx` |
 | P3 | Hay elementos que se pulsan y miden menos de 44 px: Button `sm` (36 px) e Input `sm` y `md` (32 y 40 px). | `Button.tsx:36`, `Input.tsx:21–22` |
 | P2 | `CardHeader` siempre usa un `h3`, así que no se puede elegir el nivel del título. Por eso la pantalla del asistente lo copió en vez de usarlo. | `Card.tsx:75` |
-| P3 | No existe el token `text-strong` para la información médica. | — |
 | P4 | Storybook no tiene selector de modo claro y oscuro. | `.storybook/preview.ts` |
 | P4 | No hay modo oscuro. | Todo el proyecto |
 | P5 | Card usa `padding` en vez de `size`. El icono de Button se pasa con `iconLeft` e `iconRight`, en vez de `icon` con `iconPosition`. | `Card.tsx:10`, `Button.tsx:12–14` |
