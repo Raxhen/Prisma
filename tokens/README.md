@@ -73,7 +73,7 @@ Los valores de `role` son los mismos que la tabla de P5 del ADR-001, para que el
 | `semantic.color.text.primary.inverse.rest` | Texto blanco sobre ese fondo |
 | `semantic.color.text.neutral.default.rest` | Texto normal |
 | `semantic.color.text.neutral.subtle.rest` | Texto de apoyo: ayudas, horas… |
-| `semantic.color.text.neutral.strong.rest` | **Información médica** (dosis, resultados, fechas de citas). Es el token `text-strong` del principio P3 del ADR-001 y debe tener al menos 7:1 de contraste |
+| `semantic.color.text.neutral.strong.rest` | **Información médica** (dosis, resultados, fechas de citas). Es el token que pide el principio P3 del ADR-001 y debe tener al menos 7:1 de contraste |
 | `semantic.color.border.danger.default.rest` | Borde de un campo con error |
 | `semantic.color.focus.primary.default.rest` | Contorno de foco con el teclado |
 
