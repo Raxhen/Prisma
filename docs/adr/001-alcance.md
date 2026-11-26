@@ -10,6 +10,8 @@
 
 *Revisado el 26 de noviembre de 2026: el token de la información médica se llama `semantic.color.text.neutral.strong.rest`, según el manual de tokens (`tokens/README.md`). Antes se llamaba `text-strong`.*
 
+*Revisado el 26 de noviembre de 2026: Storybook ya tiene selector de modo claro y oscuro, así que esa fila sale de la tabla de lo que no se cumple.*
+
 Un ADR (*Architecture Decision Record*) es un documento corto que deja por escrito una decisión importante y por qué se tomó. Este es el primero de Prisma: dice qué cubre el design system y qué reglas tiene que cumplir todo lo que se haga con él.
 
 ## Contexto
@@ -147,8 +149,7 @@ Según la auditoría, hoy Prisma **no cumple** estos principios en varios puntos
 | P2 | Faltan componentes que la pantalla tuvo que inventar: cabecera de pantalla, estado vacío, burbuja de mensaje y divisor. | `src/screens/antes.tsx` |
 | P3 | Hay elementos que se pulsan y miden menos de 44 px: Button `sm` (36 px) e Input `sm` y `md` (32 y 40 px). | `Button.tsx:36`, `Input.tsx:21–22` |
 | P2 | `CardHeader` siempre usa un `h3`, así que no se puede elegir el nivel del título. Por eso la pantalla del asistente lo copió en vez de usarlo. | `Card.tsx:75` |
-| P4 | Storybook no tiene selector de modo claro y oscuro. | `.storybook/preview.ts` |
-| P4 | No hay modo oscuro. | Todo el proyecto |
+| P4 | La app todavía no tiene forma de cambiar a modo oscuro: de momento solo se puede ver en Storybook. | `src/App.tsx` |
 | P5 | Card usa `padding` en vez de `size`. El icono de Button se pasa con `iconLeft` e `iconRight`, en vez de `icon` con `iconPosition`. | `Card.tsx:10`, `Button.tsx:12–14` |
 | Marca | `teal` sigue en Input y Card. | `Input.tsx:75`, `Card.tsx:16` y `Card.tsx:68` |
 

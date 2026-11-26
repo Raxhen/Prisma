@@ -20,13 +20,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 // de componente de Button (tokens/tokens.json → component.button). La lista completa
 // de token → clase está en docs/tokens.md.
 const base =
-  'inline-flex items-center justify-center gap-button-gap rounded-button-radius border-width-button border-transparent text-center transition-colors ' +
+  'inline-flex items-center justify-center gap-button-gap rounded-button-radius border-width-button text-center transition-colors ' +
   'focus-visible:outline-width-button-focus focus-visible:outline-offset-2 focus-visible:outline-button-focus-primary ' +
   'disabled:cursor-not-allowed'
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    'bg-button-background-primary text-button-text-primary [&_svg]:text-button-icon-primary ' +
+    'border-transparent bg-button-background-primary text-button-text-primary [&_svg]:text-button-icon-primary ' +
     'enabled:hover:bg-button-background-primary-hover enabled:active:bg-button-background-primary-active ' +
     'disabled:bg-button-background-primary-disabled disabled:text-button-text-primary-disabled disabled:[&_svg]:text-button-icon-primary-disabled',
   secondary:
@@ -34,11 +34,11 @@ const variants: Record<ButtonVariant, string> = {
     'enabled:hover:bg-button-background-secondary-hover enabled:active:bg-button-background-secondary-active ' +
     'disabled:border-button-border-secondary-disabled disabled:bg-button-background-secondary-disabled disabled:text-button-text-secondary-disabled disabled:[&_svg]:text-button-icon-secondary-disabled',
   ghost:
-    'text-button-text-ghost [&_svg]:text-button-icon-ghost ' +
+    'border-transparent text-button-text-ghost [&_svg]:text-button-icon-ghost ' +
     'enabled:hover:bg-button-background-ghost-hover enabled:active:bg-button-background-ghost-active ' +
     'disabled:text-button-text-ghost-disabled disabled:[&_svg]:text-button-icon-ghost-disabled',
   danger:
-    'bg-button-background-danger text-button-text-danger [&_svg]:text-button-icon-danger ' +
+    'border-transparent bg-button-background-danger text-button-text-danger [&_svg]:text-button-icon-danger ' +
     'enabled:hover:bg-button-background-danger-hover enabled:active:bg-button-background-danger-active ' +
     'disabled:bg-button-background-danger-disabled disabled:text-button-text-danger-disabled disabled:[&_svg]:text-button-icon-danger-disabled',
 }

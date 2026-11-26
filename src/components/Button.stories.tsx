@@ -3,9 +3,10 @@ import { IconCheck, IconPlus, IconTrash } from '@tabler/icons-react'
 import { Button } from './Button'
 
 /**
- * Botón con esquinas totalmente redondeadas. Los colores tienen al menos 4,5:1
- * de contraste con el texto: blanco sobre `emerald-700` (5,4:1) en `primary` y
- * blanco sobre `red-600` (4,8:1) en `danger`.
+ * Botón con esquinas totalmente redondeadas. Sus colores, medidas y tipografía salen
+ * de los tokens de componente `component.button` (ver Fundamentos → Tokens de
+ * componente → Button), y el texto tiene al menos 4,5:1 de contraste con el fondo en
+ * los dos modos.
  */
 const meta = {
   title: 'Componentes/Button',

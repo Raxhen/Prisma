@@ -1,0 +1,26 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Tokens de componente/Introducción" />
+
+# Tokens de componente
+
+Cada componente de `src/components/` tiene sus propios tokens, y cada uno es un alias a un token **semántico**, nunca a un primitivo.
+
+En cada página verás, para cada token:
+
+- una **muestra**. En los colores tiene dos mitades: modo claro y modo oscuro;
+- su **nombre**, su **descripción** y su **clase de Tailwind**;
+- el **semántico** al que apunta (→) y, en la línea siguiente, el **primitivo** al que llega al final.
+
+Los componentes usan estas clases en lugar de los colores y las medidas de Tailwind escritos a mano.
+
+## Páginas
+
+| Página | Componente |
+|---|---|
+| **Button** | `src/components/Button.tsx` |
+| **Input** | `src/components/Input.tsx` |
+| **Card** | `src/components/Card.tsx`, con `CardHeader` y `CardFooter` |
+| **Badge** | `src/components/Badge.tsx` |
