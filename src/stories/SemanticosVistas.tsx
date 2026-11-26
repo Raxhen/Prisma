@@ -360,3 +360,97 @@ export function Sombras({ root }: { root: Node }) {
   )
 }
 
+
+// ---------- Tokens de componente ----------
+
+/** Sigue los alias de un token hasta llegar a un valor real, en el modo elegido. */
+function chain(root: Node, token: Token, mode: Mode) {
+  const steps: string[] = []
+  let current = token
+  while (typeof current.$value === 'string' && current.$value.startsWith('{')) {
+    const alias = aliasOf(current, mode)
+    steps.push(alias.replace(/[{}]/g, ''))
+    current = lookup(root, alias)
+  }
+  return { steps, value: current.$value, last: current }
+}
+
+function typeOf(root: Node, path: string) {
+  let node: unknown = root
+  let type: string | undefined
+  for (const part of path.split('.')) {
+    node = (node as Node)[part]
+    const t = (node as Node | undefined)?.$type
+    if (typeof t === 'string') type = t
+  }
+  return type
+}
+
+function Muestra({ root, path, token }: { root: Node; path: string; token: Token }) {
+  const type = typeOf(root, path)
+  if (type === 'color') {
+    return (
+      <div className="flex shrink-0 overflow-hidden rounded-md border border-gray-200">
+        {(['claro', 'oscuro'] as const).map((mode) => (
+          <span
+            key={mode}
+            title={mode}
+            className="block size-8"
+            style={{ background: cssColor(chain(root, token, mode).value as Color) }}
+          />
+        ))}
+      </div>
+    )
+  }
+  if (type === 'shadow') {
+    const { last } = chain(root, token, 'claro')
+    const v = last.$value as Record<string, string>
+    const d = (k: string) => css(lookup(root, v[k]).$value as Dimension)
+    const shadow = `${d('offsetX')} ${d('offsetY')} ${d('blur')} ${d('spread')} ${cssColor(lookup(root, v.color).$value as Color)}`
+    return <span className="block h-8 w-16 shrink-0 rounded-md bg-white" style={{ boxShadow: shadow }} />
+  }
+  const value = chain(root, token, 'claro').value
+  return (
+    <span className="flex h-8 w-16 shrink-0 items-center justify-center rounded-md bg-gray-100 text-xs font-semibold text-gray-900">
+      {typeof value === 'number' ? value : css(value as Dimension)}
+    </span>
+  )
+}
+
+export function Componente({ root, name }: { root: Node; name: string }) {
+  const component = (root.component as Node)[name] as Node
+  const tokens = flatten(component, `component.${name}`)
+  return (
+    <Section>
+      <div className="divide-y divide-gray-200 overflow-hidden rounded-lg border border-gray-200 bg-white">
+        {tokens.map(([path, token]) => {
+          const resolved = chain(root, token, 'claro')
+          const claro = resolved.steps
+          const oscuro = chain(root, token, 'oscuro').steps
+          // Una sombra no llega a un solo primitivo: se monta con varias piezas.
+          const pieces =
+            typeof resolved.value === 'object' && resolved.value !== null && !('colorSpace' in resolved.value) && !('unit' in resolved.value)
+              ? Object.entries(resolved.value as Record<string, string>)
+                  .filter(([k]) => ['offsetY', 'blur', 'color'].includes(k))
+                  .map(([k, v]) => `${k}: ${short(v)}`)
+                  .join(' · ')
+              : null
+          return (
+            <div key={path} className="flex items-center gap-4 p-3">
+              <Muestra root={root} path={path} token={token} />
+              <div className="min-w-0 flex-1">
+                <Name>{path}</Name>
+                <Small>{token.$description}</Small>
+                <Small className="mt-1">
+                  → {claro[0]}
+                  <br />→ {pieces ?? claro.slice(1).map(short).join(' → ')}
+                  {oscuro[1] && oscuro[1] !== claro[1] && <> · oscuro: {short(oscuro[1])}</>}
+                </Small>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </Section>
+  )
+}
