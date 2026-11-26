@@ -3,6 +3,8 @@
 // primitivo y no guardan ningún valor propio.
 import type { CSSProperties, ReactNode } from 'react'
 import { IconHeartbeat } from '@tabler/icons-react'
+// La clase de Tailwind de cada token sale de docs/tokens.md, que genera `npm run tokens`.
+import tokensDoc from '../../docs/tokens.md?raw'
 
 type Dimension = { value: number; unit: string }
 type Color = { colorSpace: string; components: number[]; alpha?: number; hex?: string }
@@ -61,6 +63,21 @@ function contrast(a: Color, b: Color) {
 }
 
 const css = (d: Dimension) => `${d.value}${d.unit}`
+
+/** Token → clase de Tailwind, leído de las tablas de docs/tokens.md. */
+const CLASSES = new Map(
+  [...tokensDoc.matchAll(/^\| `([^`]+)` \| `[^`]+` \| (.+) \|$/gm)].map((m) => [m[1], m[2].replace(/`/g, '')]),
+)
+
+function Clase({ path }: { path: string }) {
+  const cls = CLASSES.get(path)
+  if (!cls) return null
+  return (
+    <span className="mt-1 block text-xs text-gray-600">
+      Clase: <code className="rounded bg-gray-100 px-1 font-semibold text-gray-900">{cls}</code>
+    </span>
+  )
+}
 const short = (alias: string) => alias.replace(/[{}]/g, '').replace('primitive.', '')
 
 function Name({ children }: { children: ReactNode }) {
@@ -96,6 +113,7 @@ function TokenCard({
       <div className="p-3">
         <Name>{path}</Name>
         <Small className="mt-1">{token.$description}</Small>
+        <Clase path={path} />
       </div>
       <div className="grid grid-cols-2">{children}</div>
     </div>
@@ -214,6 +232,7 @@ export function Tipografia({ root }: { root: Node }) {
               <Name>{style}</Name>
               <Small>{((sem['font-size'] as Node)[style] as Token).$description?.split(': ').slice(1).join(': ')}</Small>
             </div>
+            <Clase path={`semantic.font-size.${style}`} />
             <p
               className="mt-2 text-gray-900"
               style={{
@@ -259,6 +278,7 @@ function Label({ path, alias, value }: { path: string; alias: string; value: Dim
       <Small>
         → {short(alias)} · {css(value)}
       </Small>
+      <Clase path={path} />
     </span>
   )
 }
@@ -293,6 +313,7 @@ export function Radios({ root }: { root: Node }) {
                 → {short(alias)} · {css(value)}
               </Small>
               <Small className="mt-1">{token.$description}</Small>
+              <Clase path={path} />
             </div>
           </div>
         ))}
@@ -325,6 +346,7 @@ export function Bordes({ root }: { root: Node }) {
                 → {short(alias)} · {css(value)}
               </Small>
               <Small className="mt-1">{token.$description}</Small>
+              <Clase path={path} />
             </div>
           </div>
         ))}
@@ -347,6 +369,7 @@ export function Sombras({ root }: { root: Node }) {
               <div className="mb-4 h-24 rounded-xl bg-white" style={{ boxShadow: shadow }} />
               <Name>{path}</Name>
               <Small className="mt-1">{token.$description}</Small>
+              <Clase path={path} />
               {(['offsetY', 'blur', 'color'] as const).map((k) => (
                 <Small key={k}>
                   {k}: → {short(v[k])}
@@ -441,6 +464,7 @@ export function Componente({ root, name }: { root: Node; name: string }) {
               <div className="min-w-0 flex-1">
                 <Name>{path}</Name>
                 <Small>{token.$description}</Small>
+                <Clase path={path} />
                 <Small className="mt-1">
                   → {claro[0]}
                   <br />→ {pieces ?? claro.slice(1).map(short).join(' → ')}

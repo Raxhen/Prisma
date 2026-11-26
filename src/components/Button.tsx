@@ -16,26 +16,39 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean
 }
 
+// Todas las clases de color, espaciado, radio, borde y tipografía salen de los tokens
+// de componente de Button (tokens/tokens.json → component.button). La lista completa
+// de token → clase está en docs/tokens.md.
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-full text-center font-medium transition-colors ' +
-  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600 ' +
-  'disabled:cursor-not-allowed disabled:opacity-50'
+  'inline-flex items-center justify-center gap-button-gap rounded-button-radius border-width-button border-transparent text-center transition-colors ' +
+  'focus-visible:outline-width-button-focus focus-visible:outline-offset-2 focus-visible:outline-button-focus-primary ' +
+  'disabled:cursor-not-allowed'
 
-// Colores elegidos para que el texto tenga al menos 4,5:1 de contraste (WCAG AA):
-// blanco sobre emerald-700 = 5,4:1 · blanco sobre red-600 = 4,8:1.
 const variants: Record<ButtonVariant, string> = {
-  primary: 'bg-emerald-700 text-white hover:bg-emerald-800 active:bg-emerald-900',
+  primary:
+    'bg-button-background-primary text-button-text-primary [&_svg]:text-button-icon-primary ' +
+    'enabled:hover:bg-button-background-primary-hover enabled:active:bg-button-background-primary-active ' +
+    'disabled:bg-button-background-primary-disabled disabled:text-button-text-primary-disabled disabled:[&_svg]:text-button-icon-primary-disabled',
   secondary:
-    'border border-gray-300 bg-white text-gray-900 hover:bg-gray-50 active:bg-gray-100',
-  ghost: 'text-emerald-700 hover:bg-emerald-50 active:bg-emerald-100',
-  danger: 'bg-red-600 text-white hover:bg-red-700 active:bg-red-800',
+    'border-button-border-secondary bg-button-background-secondary text-button-text-secondary [&_svg]:text-button-icon-secondary ' +
+    'enabled:hover:bg-button-background-secondary-hover enabled:active:bg-button-background-secondary-active ' +
+    'disabled:border-button-border-secondary-disabled disabled:bg-button-background-secondary-disabled disabled:text-button-text-secondary-disabled disabled:[&_svg]:text-button-icon-secondary-disabled',
+  ghost:
+    'text-button-text-ghost [&_svg]:text-button-icon-ghost ' +
+    'enabled:hover:bg-button-background-ghost-hover enabled:active:bg-button-background-ghost-active ' +
+    'disabled:text-button-text-ghost-disabled disabled:[&_svg]:text-button-icon-ghost-disabled',
+  danger:
+    'bg-button-background-danger text-button-text-danger [&_svg]:text-button-icon-danger ' +
+    'enabled:hover:bg-button-background-danger-hover enabled:active:bg-button-background-danger-active ' +
+    'disabled:bg-button-background-danger-disabled disabled:text-button-text-danger-disabled disabled:[&_svg]:text-button-icon-danger-disabled',
 }
 
+// El alto sale del relleno vertical, la altura de línea y el borde: 46, 50 y 62 px.
+// Los iconos todavía no tienen tokens de tamaño.
 const sizes: Record<ButtonSize, string> = {
-  // Altura mínima (y no fija) para que un texto largo no se salga del botón.
-  sm: 'min-h-9 px-4 py-1.5 text-sm [&_svg]:size-4',
-  md: 'min-h-11 px-5 py-2 text-base [&_svg]:size-5',
-  lg: 'min-h-12 px-7 py-2.5 text-lg [&_svg]:size-6',
+  sm: 'px-button-padding-x-sm py-button-padding-y-sm text-button-sm [&_svg]:size-4',
+  md: 'px-button-padding-x-md py-button-padding-y-md text-button-md [&_svg]:size-5',
+  lg: 'px-button-padding-x-lg py-button-padding-y-lg text-button-lg [&_svg]:size-6',
 }
 
 export function Button({

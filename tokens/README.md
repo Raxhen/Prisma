@@ -261,4 +261,23 @@ Solo los **semánticos de color** llevan modo oscuro. Los primitivos no cambian 
 
 - **`primitive`:** existe y cumple el manual: cada token tiene su `$value` y su `$description`.
 - **`semantic`:** existe. Cumple el manual: cada token tiene `$description`, es un alias a un primitivo y, si es de color, tiene sus cinco partes y su valor de modo oscuro. Se ve en Storybook, en **Fundamentos → Semánticos**.
-- **`component`:** existe. Tiene los tokens de Button, Input, Card y Badge. Cada uno es un alias a un semántico y tiene su `$description`. Se ve en Storybook, en **Fundamentos → Semánticos**, sección «Tokens de componente». Los componentes todavía no los usan: siguen con las clases de Tailwind escritas a mano.
+- **`component`:** existe. Tiene los tokens de Button, Input, Card y Badge. Cada uno es un alias a un semántico y tiene su `$description`. Se ve en Storybook, en **Fundamentos → Semánticos**, sección «Tokens de componente». Los componentes ya los usan, con sus clases de Tailwind.
+
+## Después de cambiar `tokens.json`
+
+Ejecuta:
+
+```bash
+npm run tokens
+```
+
+Vuelve a generar tres archivos que **no se editan a mano**:
+
+| Archivo | Qué es |
+|---|---|
+| `src/styles/tokens.css` | Una variable CSS por token, también las de modo oscuro |
+| `src/styles/theme.css` | Las clases de Tailwind de los tokens semánticos y de componente |
+| `docs/tokens.md` | La tabla de cada token con su variable CSS y su clase de Tailwind |
+
+Para comprobar que están al día sin escribirlos, ejecuta `npm run tokens -- --check`. Si alguno no lo está, el comando termina con un error.
+
