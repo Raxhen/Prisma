@@ -21,6 +21,7 @@ Prisma reúne los fundamentos visuales (colores, tipografía, espaciados, iconos
 - **Ramas y PR:** cada cambio va en su propia rama y se propone con una pull request. No subas nada directamente a `main`.
 - **Explicaciones sin jerga:** explica qué has cambiado y por qué con palabras sencillas, como si lo contaras a alguien que no programa. Si un término técnico es imprescindible, explícalo en una frase.
 - **Dependencias:** si cambias `package.json`, actualiza también `package-lock.json` (con `npm install`) e incluye los dos archivos en la misma PR.
+- **Tokens:** si cambias `tokens/tokens.json`, ejecuta `npm run tokens` e incluye en la misma PR los archivos que genera (`src/styles/tokens.css`, `src/styles/theme.css` y `docs/tokens.md`). No edites esos tres archivos a mano. En los componentes, usa las clases de sus tokens (están en `docs/tokens.md`), nunca colores de la paleta ni escalas de Tailwind.
 
 ## Decisiones
 

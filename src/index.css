@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Tokens de Prisma: generados con `npm run tokens` a partir de tokens/tokens.json */
+@import './styles/tokens.css';
+@import './styles/theme.css';
+
 /*
  * Tailwind solo crea las clases que encuentra escritas en el código.
  * La página "Tailwind" monta los nombres de las clases sobre la marcha
