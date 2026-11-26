@@ -260,8 +260,8 @@ Solo los **semánticos de color** llevan modo oscuro. Los primitivos no cambian 
 ## Estado actual
 
 - **`primitive`:** existe y cumple el manual: cada token tiene su `$value` y su `$description`.
-- **`semantic`:** existe. Cumple el manual: cada token tiene `$description`, es un alias a un primitivo y, si es de color, tiene sus cinco partes y su valor de modo oscuro. Se ve en Storybook, en **Fundamentos → Semánticos**.
-- **`component`:** existe. Tiene los tokens de Button, Input, Card y Badge. Cada uno es un alias a un semántico y tiene su `$description`. Se ve en Storybook, en **Fundamentos → Semánticos**, sección «Tokens de componente». Los componentes ya los usan, con sus clases de Tailwind.
+- **`semantic`:** existe. Cumple el manual: cada token tiene `$description`, es un alias a un primitivo y, si es de color, tiene sus cinco partes y su valor de modo oscuro. Se ve en Storybook, en **Fundamentos → Semánticos**, con una página por categoría. Con el botón **Modo** de la barra de arriba, los componentes se ven en modo claro u oscuro.
+- **`component`:** existe. Tiene los tokens de Button, Input, Card y Badge. Cada uno es un alias a un semántico y tiene su `$description`. Se ve en Storybook, en **Fundamentos → Tokens de componente**, con una página por componente. Los componentes ya los usan, con sus clases de Tailwind.
 
 ## Después de cambiar `tokens.json`
 

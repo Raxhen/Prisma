@@ -1,0 +1,13 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../../tokens/tokens.json'
+import { Tipografia } from './Vistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Semánticos/Tipografía" />
+
+# Tipografía
+
+Seis estilos de texto. Cada uno junta un tamaño, una altura de línea y un peso, y se usa con una sola clase (`text-heading`, `text-body`…). La altura de línea siempre es un alias a la escala de `line-height`, nunca una proporción.
+
+<Tipografia root={tokens} />

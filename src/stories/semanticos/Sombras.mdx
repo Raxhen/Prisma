@@ -1,0 +1,13 @@
+import { Meta } from '@storybook/addon-docs/blocks'
+import tokens from '../../../tokens/tokens.json'
+import { Sombras } from './Vistas'
+
+{/* Esta página solo lee tokens/tokens.json y lo pinta. No copies aquí ningún valor. */}
+
+<Meta title="Fundamentos/Semánticos/Sombras" />
+
+# Sombras
+
+Cada sombra se monta con las piezas de `primitive.shadow`: desplazamiento hacia abajo, difuminado y color.
+
+<Sombras root={tokens} />

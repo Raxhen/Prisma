@@ -1,10 +1,10 @@
-// Piezas visuales de la página Fundamentos/Semánticos de Storybook.
+// Piezas visuales de las páginas Fundamentos/Semánticos y Fundamentos/Tokens de componente de Storybook.
 // Solo pintan lo que reciben de tokens/tokens.json: resuelven cada alias hasta su
 // primitivo y no guardan ningún valor propio.
 import type { CSSProperties, ReactNode } from 'react'
 import { IconHeartbeat } from '@tabler/icons-react'
 // La clase de Tailwind de cada token sale de docs/tokens.md, que genera `npm run tokens`.
-import tokensDoc from '../../docs/tokens.md?raw'
+import tokensDoc from '../../../docs/tokens.md?raw'
 
 type Dimension = { value: number; unit: string }
 type Color = { colorSpace: string; components: number[]; alpha?: number; hex?: string }
