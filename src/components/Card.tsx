@@ -49,7 +49,7 @@ export interface CardHeaderProps
   title: ReactNode
   /** Texto corto debajo del título. */
   description?: ReactNode
-  /** Icono que aparece a la izquierda del título. */
+  /** Icono que aparece a la izquierda del título. Es decorativo: el lector de pantalla no lo lee. */
   icon?: ReactNode
   /** Contenido a la derecha del título, por ejemplo un Badge. */
   action?: ReactNode
@@ -68,7 +68,7 @@ export function CardHeader({
     // en vez de montarse sobre el título.
     <div className={`flex flex-wrap items-start gap-card-header-gap ${className}`} {...rest}>
       {icon && (
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-card-header-icon-radius bg-card-header-icon-background-primary text-card-header-icon-icon-primary [&_svg]:size-5">
+        <span aria-hidden="true" className="flex size-10 shrink-0 items-center justify-center rounded-card-header-icon-radius bg-card-header-icon-background-primary text-card-header-icon-icon-primary [&_svg]:size-5">
           {icon}
         </span>
       )}

@@ -127,6 +127,8 @@ Cada componente interactivo tiene un nombre que el lector puede leer. Sale de un
 <input placeholder="Correo electrónico" />
 ```
 
+> **Estado en Prisma:** los componentes no dejan crear elementos sin nombre: TypeScript da error si un `Button` no tiene ni texto ni `aria-label`, si un `Badge` no tiene texto o si un `Input` no tiene `label`. Sus iconos son decorativos y quedan ocultos al lector de pantalla. En Storybook, la historia **Button → SoloIcono** lo comprueba, y el complemento de accesibilidad marca como fallo cualquier historia con un elemento sin nombre.
+
 **Checklist:**
 
 - [ ] Cada botón, enlace y campo tiene un nombre: su texto, su `label` o un `aria-label`.

@@ -5,13 +5,16 @@ type InputSize = 'sm' | 'md' | 'lg'
 
 export interface InputProps
   extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
-  /** Texto que explica qué hay que escribir. Siempre visible. */
+  /**
+   * Texto que explica qué hay que escribir. Es obligatorio y siempre visible: es el nombre
+   * del campo para el lector de pantalla (docs/accesibilidad.md, regla 3).
+   */
   label: string
   /** Ayuda que aparece debajo del campo. */
   hint?: string
   /** Mensaje de error. Si existe, el campo se marca en rojo. */
   error?: string
-  /** Icono que aparece dentro del campo, a la izquierda. */
+  /** Icono que aparece dentro del campo, a la izquierda. Es decorativo: el lector de pantalla no lo lee. */
   icon?: ReactNode
   /** Tamaño del campo. */
   size?: InputSize
@@ -76,7 +79,7 @@ export function Input({
         }
       >
         {icon && (
-          <span className="pointer-events-none flex shrink-0 items-center text-input-icon-neutral [&_svg]:size-5">
+          <span aria-hidden="true" className="pointer-events-none flex shrink-0 items-center text-input-icon-neutral [&_svg]:size-5">
             {icon}
           </span>
         )}

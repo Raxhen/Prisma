@@ -140,3 +140,30 @@ export const Teclado: Story = {
     await expect(args.onClick).toHaveBeenCalledTimes(2)
   },
 }
+
+/**
+ * Botones con solo un icono. No tienen texto visible, así que llevan un `aria-label`
+ * que dice lo que hacen: es lo que oye quien usa un lector de pantalla. Sin él,
+ * TypeScript da error. La prueba comprueba el nombre de cada botón, que el icono
+ * queda oculto al lector y que ninguno mide menos de 44 × 44 px.
+ */
+export const SoloIcono: Story = {
+  render: () => (
+    <div className="flex flex-wrap items-center gap-space-md">
+      <Button aria-label="Añadir cita" iconLeft={<IconPlus />} size="sm" />
+      <Button aria-label="Marcar como tomada" variant="secondary" iconLeft={<IconCheck />} />
+      <Button aria-label="Borrar nota" variant="danger" iconLeft={<IconTrash />} size="lg" />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    for (const name of ['Añadir cita', 'Marcar como tomada', 'Borrar nota']) {
+      const button = canvas.getByRole('button', { name })
+      await expect(button.querySelector('svg')?.closest('[aria-hidden="true"]')).not.toBeNull()
+      // Zona táctil mínima (ADR-001, P3), también sin texto.
+      await expect(button.offsetWidth).toBeGreaterThanOrEqual(44)
+      await expect(button.offsetHeight).toBeGreaterThanOrEqual(44)
+    }
+  },
+}
+
