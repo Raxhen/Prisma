@@ -227,7 +227,8 @@ function TailwindPage() {
       <Section title="Paleta de color (Tailwind)">
         <div className="overflow-x-auto">
           <div className="min-w-3xl space-y-2">
-            <div className="flex items-end gap-2 text-xs text-gray-500">
+            {/* Guía visual de los tonos: cada muestra ya dice el suyo, así que se oculta al lector. */}
+            <div aria-hidden="true" className="flex items-end gap-2 text-xs text-gray-500">
               <span className="w-20 shrink-0" />
               {shades.map((shade) => (
                 <span key={shade} className="flex-1 text-center">
@@ -241,8 +242,12 @@ function TailwindPage() {
                   {color}
                 </span>
                 {shades.map((shade) => (
+                  // Cada muestra es una imagen con significado (el color), así que lleva
+                  // su nombre como texto alternativo.
                   <div
                     key={shade}
+                    role="img"
+                    aria-label={`${color}-${shade}`}
                     title={`${color}-${shade}`}
                     className={`h-10 flex-1 rounded-md bg-${color}-${shade}`}
                   />
@@ -263,7 +268,8 @@ function TailwindPage() {
               <span className="w-32 shrink-0 text-xs text-gray-500">
                 {spacingValue(step)}
               </span>
-              <div className={`h-4 bg-sky-500 w-${step}`} />
+              {/* La barra solo dibuja el valor que ya está escrito al lado. */}
+              <div aria-hidden="true" className={`h-4 bg-sky-500 w-${step}`} />
             </div>
           ))}
         </div>
@@ -273,7 +279,9 @@ function TailwindPage() {
         <div className="flex flex-wrap gap-6">
           {radii.map(({ name, value }) => (
             <div key={name} className="text-center">
+              {/* El cuadrado solo dibuja el radio que está escrito debajo. */}
               <div
+                aria-hidden="true"
                 className={`size-20 border-2 border-sky-500 bg-sky-100 rounded-${name}`}
               />
               <p className="mt-2 text-sm font-medium">rounded-{name}</p>
@@ -304,7 +312,13 @@ function TailwindPage() {
           <div className="grid min-w-3xl grid-cols-8 gap-4">
             {icons.map(({ name, Icon }) => (
               <div key={name} className="text-center">
-                <Icon size={32} stroke={1.5} className="mx-auto text-gray-900" />
+                {/* El nombre del icono ya está escrito debajo: el dibujo se oculta al lector. */}
+                <Icon
+                  aria-hidden="true"
+                  size={32}
+                  stroke={1.5}
+                  className="mx-auto text-gray-900"
+                />
                 <p className="mt-2 text-xs">{name}</p>
               </div>
             ))}
