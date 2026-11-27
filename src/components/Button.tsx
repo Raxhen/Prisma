@@ -66,12 +66,19 @@ const variants: Record<ButtonVariant, string> = {
 // El alto sale del relleno vertical, la altura de línea y el borde: 46, 50 y 62 px.
 // Los iconos todavía no tienen tokens de tamaño.
 const sizes: Record<ButtonSize, string> = {
-  sm: 'px-button-padding-x-sm py-button-padding-y-sm text-button-sm [&_svg]:size-4',
-  md: 'px-button-padding-x-md py-button-padding-y-md text-button-md [&_svg]:size-5',
-  lg: 'px-button-padding-x-lg py-button-padding-y-lg text-button-lg [&_svg]:size-6',
+  sm: 'py-button-padding-y-sm text-button-sm [&_svg]:size-4',
+  md: 'py-button-padding-y-md text-button-md [&_svg]:size-5',
+  lg: 'py-button-padding-y-lg text-button-lg [&_svg]:size-6',
 }
 
-const iconOnlySizes: Record<ButtonSize, string> = {
+// Relleno de los lados: el normal si hay texto; si el botón solo tiene un icono, el
+// mismo que arriba y abajo, para que sea redondo.
+const paddingX: Record<ButtonSize, string> = {
+  sm: 'px-button-padding-x-sm',
+  md: 'px-button-padding-x-md',
+  lg: 'px-button-padding-x-lg',
+}
+const iconOnlyPaddingX: Record<ButtonSize, string> = {
   sm: 'px-button-padding-y-sm',
   md: 'px-button-padding-y-md',
   lg: 'px-button-padding-y-lg',
@@ -93,7 +100,7 @@ export function Button({
   return (
     <button
       type={type}
-      className={`${base} ${variants[variant]} ${sizes[size]} ${iconOnly ? iconOnlySizes[size] : ''} ${fullWidth ? 'w-full' : ''} ${className}`}
+      className={`${base} ${variants[variant]} ${sizes[size]} ${iconOnly ? iconOnlyPaddingX[size] : paddingX[size]} ${fullWidth ? 'w-full' : ''} ${className}`}
       {...rest}
     >
       {/* Los iconos son decorativos: el nombre sale del texto o del aria-label. Si el botón
