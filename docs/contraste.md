@@ -2,20 +2,21 @@
 
 > **Archivo generado** por `scripts/contrast.mjs` a partir de `tokens/tokens.json` y `tokens/contrast-pairs.json`. No lo edites a mano: cambia las reglas o los tokens y ejecuta `npm run contrast`.
 
-Cada regla de `tokens/contrast-pairs.json` junta un tipo de color (por su nombre) con un grupo de fondos. De ahí salen todas las parejas, y cada una se comprueba en **modo claro** y en **modo oscuro**. Los mínimos son 4,5:1 para el texto y 3:1 para iconos, bordes y foco, y 7:1 para `text.neutral.strong`, el de la información médica (ADR-001, P3, y `docs/accesibilidad.md`).
+Cada regla de `tokens/contrast-pairs.json` junta un tipo de color (por su nombre) con un grupo de fondos. De ahí salen todas las parejas, y cada una se comprueba en **modo claro** y en **modo oscuro**. Los mínimos son 4,5:1 para el texto y 3:1 para iconos, bordes y foco (en el anillo de foco doble basta con que uno de sus dos anillos llegue a 3:1), y 7:1 para `text.neutral.strong`, el de la información médica (ADR-001, P3, y `docs/accesibilidad.md`).
 
 **Exento** quiere decir que la pareja se mide, pero no tiene mínimo: los elementos desactivados y el borde decorativo.
 
 ## Resumen
 
-**395 parejas** en total: **362 pasan** en los dos modos, **0 no pasan** en algún modo y **33 están exentas**.
+**416 parejas** en total: **383 pasan** en los dos modos, **0 no pasan** en algún modo y **33 están exentas**.
 
 | Regla | Tipo y mínimo | Parejas | Pasan | No pasan | Exentas |
 |---|---|---|---|---|---|
 | Texto normal sobre fondos claros | text · 4,50:1 | 99 | 88 | 0 | 11 |
 | Texto inverse sobre fondos fuertes | text · 4,50:1 | 60 | 60 | 0 | 0 |
-| Bordes y foco sobre fondos claros | ui · 3,00:1 | 88 | 77 | 0 | 11 |
+| Bordes y anillo de color del foco sobre fondos claros | ui · 3,00:1 | 88 | 77 | 0 | 11 |
 | Iconos como el texto: normales sobre claros e inverse sobre fuertes | ui · 3,00:1 | 148 | 137 | 0 | 11 |
+| Anillo de foco doble sobre cualquier fondo | ui · 3,00:1 | 21 | 21 | 0 | 0 |
 
 ## Parejas que no pasan
 
@@ -218,7 +219,7 @@ Pasan, pero por poco: si cambia alguno de sus colores, conviene mirarlas primero
 | `text.danger.inverse.rest` | `background.danger.default.hover` | 4,50:1 | 7,64:1 ✅ | 8,42:1 ✅ |
 | `text.danger.inverse.rest` | `background.danger.default.active` | 4,50:1 | 9,16:1 ✅ | 11,12:1 ✅ |
 
-### Bordes y foco sobre fondos claros
+### Bordes y anillo de color del foco sobre fondos claros
 
 88 parejas.
 
@@ -467,3 +468,31 @@ Pasan, pero por poco: si cambia alguno de sus colores, conviene mirarlas primero
 | `icon.danger.inverse.rest` | `background.danger.default.rest` | 3,00:1 | 5,87:1 ✅ | 5,60:1 ✅ |
 | `icon.danger.inverse.rest` | `background.danger.default.hover` | 3,00:1 | 7,64:1 ✅ | 8,42:1 ✅ |
 | `icon.danger.inverse.rest` | `background.danger.default.active` | 3,00:1 | 9,16:1 ✅ | 11,12:1 ✅ |
+
+### Anillo de foco doble sobre cualquier fondo
+
+21 parejas.
+
+| Color | Fondo | Mínimo | Claro | Oscuro |
+|---|---|---|---|---|
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.neutral.default.rest` | 3,00:1 | 5,13:1 ✅ | 10,21:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.neutral.default.hover` | 3,00:1 | 4,87:1 ✅ | 9,00:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.neutral.default.active` | 3,00:1 | 4,33:1 ✅ | 7,44:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.neutral.default.disabled` | 3,00:1 | 4,87:1 ✅ | 9,00:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.neutral.subtle.rest` | 3,00:1 | 4,87:1 ✅ | 9,00:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.neutral.strong.rest` | 3,00:1 | 4,33:1 ✅ | 7,44:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.primary.subtle.rest` | 3,00:1 | 5,10:1 ✅ | 7,66:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.info.subtle.rest` | 3,00:1 | 4,93:1 ✅ | 7,50:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.success.subtle.rest` | 3,00:1 | 5,12:1 ✅ | 7,58:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.warning.subtle.rest` | 3,00:1 | 5,05:1 ✅ | 7,94:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.danger.subtle.rest` | 3,00:1 | 4,90:1 ✅ | 8,20:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.neutral.inverse.rest` | 3,00:1 | 16,98:1 ✅ | 19,27:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.primary.default.rest` | 3,00:1 | 5,13:1 ✅ | 10,21:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.primary.default.hover` | 3,00:1 | 7,36:1 ✅ | 13,17:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.primary.default.active` | 3,00:1 | 9,26:1 ✅ | 15,65:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.info.default.rest` | 3,00:1 | 6,54:1 ✅ | 7,63:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.success.default.rest` | 3,00:1 | 4,73:1 ✅ | 11,32:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.warning.default.rest` | 3,00:1 | 5,00:1 ✅ | 8,47:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.danger.default.rest` | 3,00:1 | 6,14:1 ✅ | 6,97:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.danger.default.hover` | 3,00:1 | 8,00:1 ✅ | 10,49:1 ✅ |
+| `focus.primary.default.rest + focus.neutral.default.rest` | `background.danger.default.active` | 3,00:1 | 9,59:1 ✅ | 13,85:1 ✅ |

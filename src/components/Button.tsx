@@ -21,7 +21,8 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 // de token → clase está en docs/tokens.md.
 const base =
   'inline-flex items-center justify-center gap-button-gap rounded-button-radius border-width-button text-center transition-colors ' +
-  'focus-visible:outline-width-button-focus focus-visible:outline-offset-2 focus-visible:outline-button-focus-primary ' +
+  // Anillo de foco doble (docs/accesibilidad.md, regla 2): solo al llegar con el teclado.
+  'focus-visible:focus-ring-button-primary ' +
   'disabled:cursor-not-allowed'
 
 const variants: Record<ButtonVariant, string> = {

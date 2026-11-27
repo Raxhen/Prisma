@@ -1,4 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, within } from 'storybook/test'
+import { Button } from './Button'
+import { expectFocusRing } from '../stories/teclado'
 import { IconAlertTriangle, IconCheck } from '@tabler/icons-react'
 import { Badge } from './Badge'
 
@@ -61,4 +64,28 @@ export const Tamaños: Story = {
       </Badge>
     </div>
   ),
+}
+
+/**
+ * Prueba de teclado: la etiqueta no es interactiva, así que Tab la salta y pasa
+ * del botón de antes al de después.
+ */
+export const Teclado: Story = {
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-space-md">
+      <Button variant="secondary">Antes</Button>
+      <Badge {...args}>Próxima</Badge>
+      <Button variant="secondary">Después</Button>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    await userEvent.tab()
+    await expect(canvas.getByRole('button', { name: 'Antes' })).toHaveFocus()
+    await userEvent.tab()
+    await expect(canvas.getByText('Próxima')).not.toHaveFocus()
+    const after = canvas.getByRole('button', { name: 'Después' })
+    await expect(after).toHaveFocus()
+    await expectFocusRing(after)
+  },
 }

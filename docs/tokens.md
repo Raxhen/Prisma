@@ -14,7 +14,8 @@ La clase es **la utilidad de Tailwind + el nombre del token**, sin las partes `d
 | Color de texto | `text-` | `semantic.color.text.neutral.subtle.rest` → `text-text-neutral-subtle` |
 | Color de icono | `text-` (para el icono, `[&_svg]:text-…`) | `semantic.color.icon.neutral.default.rest` → `text-icon-neutral` |
 | Color de borde | `border-` | `semantic.color.border.neutral.strong.rest` → `border-border-neutral-strong` |
-| Color de foco | `outline-` | `semantic.color.focus.primary.default.rest` → `outline-focus-primary` |
+| Anillo de foco doble | `focus-ring-` | `semantic.color.focus.primary.default.rest` → `focus-ring-primary`: `focus.neutral` por dentro, pegado al componente, y el anillo de color por fuera, los dos con el grosor `border-width.focus` |
+| Color de foco suelto | `outline-` | `semantic.color.focus.primary.default.rest` → `outline-focus-primary` |
 | Estilo de texto (tamaño, altura de línea y peso juntos) | `text-` | `semantic.font-size.heading` → `text-heading` |
 | Espaciado | `p-`, `m-`, `gap-`… | `semantic.spacing.md` → `p-space-md`, `gap-space-md`… |
 | Radio | `rounded-` | `semantic.radius.md` → `rounded-radius-md` |
@@ -89,7 +90,8 @@ Ninguna clase se llama igual que una de las que ya trae Tailwind, y las escalas 
 | `semantic.color.border.success.default.rest` | `--semantic-color-border-success-default-rest` | `border-border-success` |
 | `semantic.color.border.warning.default.rest` | `--semantic-color-border-warning-default-rest` | `border-border-warning` |
 | `semantic.color.border.danger.default.rest` | `--semantic-color-border-danger-default-rest` | `border-border-danger` |
-| `semantic.color.focus.primary.default.rest` | `--semantic-color-focus-primary-default-rest` | `outline-focus-primary` |
+| `semantic.color.focus.primary.default.rest` | `--semantic-color-focus-primary-default-rest` | `focus-ring-primary`, `outline-focus-primary` |
+| `semantic.color.focus.neutral.default.rest` | `--semantic-color-focus-neutral-default-rest` | `outline-focus-neutral` |
 
 ### Tipografía
 
@@ -194,7 +196,8 @@ Ninguna clase se llama igual que una de las que ya trae Tailwind, y las escalas 
 | `component.button.icon.ghost.default.disabled` | `--component-button-icon-ghost-default-disabled` | `text-button-icon-ghost-disabled` |
 | `component.button.border.secondary.default.rest` | `--component-button-border-secondary-default-rest` | `border-button-border-secondary` |
 | `component.button.border.secondary.default.disabled` | `--component-button-border-secondary-default-disabled` | `border-button-border-secondary-disabled` |
-| `component.button.focus.primary.default.rest` | `--component-button-focus-primary-default-rest` | `outline-button-focus-primary` |
+| `component.button.focus.primary.default.rest` | `--component-button-focus-primary-default-rest` | `focus-ring-button-primary`, `outline-button-focus-primary` |
+| `component.button.focus.neutral.default.rest` | `--component-button-focus-neutral-default-rest` | `outline-button-focus-neutral` |
 | `component.button.spacing.padding-x.sm` | `--component-button-spacing-padding-x-sm` | `px-button-padding-x-sm` |
 | `component.button.spacing.padding-x.md` | `--component-button-spacing-padding-x-md` | `px-button-padding-x-md` |
 | `component.button.spacing.padding-x.lg` | `--component-button-spacing-padding-x-lg` | `px-button-padding-x-lg` |
@@ -224,8 +227,9 @@ Ninguna clase se llama igual que una de las que ya trae Tailwind, y las escalas 
 | `component.input.icon.neutral.default.rest` | `--component-input-icon-neutral-default-rest` | `text-input-icon-neutral` |
 | `component.input.border.neutral.default.rest` | `--component-input-border-neutral-default-rest` | `border-input-border-neutral` |
 | `component.input.border.danger.default.rest` | `--component-input-border-danger-default-rest` | `border-input-border-danger` |
-| `component.input.focus.primary.default.rest` | `--component-input-focus-primary-default-rest` | `outline-input-focus-primary` |
-| `component.input.focus.danger.default.rest` | `--component-input-focus-danger-default-rest` | `outline-input-focus-danger` |
+| `component.input.focus.primary.default.rest` | `--component-input-focus-primary-default-rest` | `focus-ring-input-primary`, `outline-input-focus-primary` |
+| `component.input.focus.danger.default.rest` | `--component-input-focus-danger-default-rest` | `focus-ring-input-danger`, `outline-input-focus-danger` |
+| `component.input.focus.neutral.default.rest` | `--component-input-focus-neutral-default-rest` | `outline-input-focus-neutral` |
 | `component.input.placeholder.text.neutral.default.rest` | `--component-input-placeholder-text-neutral-default-rest` | `text-input-placeholder-text-neutral` |
 | `component.input.label.text.neutral.default.rest` | `--component-input-label-text-neutral-default-rest` | `text-input-label-text-neutral` |
 | `component.input.label.font-size.default` | `--component-input-label-font-size-default` | `text-input-label` |

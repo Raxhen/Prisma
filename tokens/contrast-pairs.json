@@ -31,8 +31,12 @@
       "name": "Texto normal sobre fondos claros",
       "kind": "text",
       "foreground": {
-        "include": ["semantic.color.text.*.*.*"],
-        "exclude": ["semantic.color.text.*.inverse.*"]
+        "include": [
+          "semantic.color.text.*.*.*"
+        ],
+        "exclude": [
+          "semantic.color.text.*.inverse.*"
+        ]
       },
       "background": "fondos-claros",
       "stricter": {
@@ -43,15 +47,23 @@
       "name": "Texto inverse sobre fondos fuertes",
       "kind": "text",
       "foreground": {
-        "include": ["semantic.color.text.*.inverse.*"]
+        "include": [
+          "semantic.color.text.*.inverse.*"
+        ]
       },
       "background": "fondos-fuertes"
     },
     {
-      "name": "Bordes y foco sobre fondos claros",
+      "name": "Bordes y anillo de color del foco sobre fondos claros",
       "kind": "ui",
       "foreground": {
-        "include": ["semantic.color.border.*.*.*", "semantic.color.focus.*.*.*"]
+        "include": [
+          "semantic.color.border.*.*.*",
+          "semantic.color.focus.*.*.*"
+        ],
+        "exclude": [
+          "semantic.color.focus.neutral.*.*"
+        ]
       },
       "background": "fondos-claros"
     },
@@ -61,23 +73,50 @@
       "pairs": [
         {
           "foreground": {
-            "include": ["semantic.color.icon.*.*.*"],
-            "exclude": ["semantic.color.icon.*.inverse.*"]
+            "include": [
+              "semantic.color.icon.*.*.*"
+            ],
+            "exclude": [
+              "semantic.color.icon.*.inverse.*"
+            ]
           },
           "background": "fondos-claros"
         },
         {
           "foreground": {
-            "include": ["semantic.color.icon.*.inverse.*"]
+            "include": [
+              "semantic.color.icon.*.inverse.*"
+            ]
           },
           "background": "fondos-fuertes"
         }
+      ]
+    },
+    {
+      "name": "Anillo de foco doble sobre cualquier fondo",
+      "$description": "El foco tiene dos anillos: el neutro por dentro y el de color por fuera. Basta con que uno de los dos llegue al mínimo sobre el fondo para que el foco se vea (docs/accesibilidad.md, regla 2).",
+      "kind": "ui",
+      "foreground": {
+        "include": [
+          "semantic.color.focus.*.*.*"
+        ],
+        "exclude": [
+          "semantic.color.focus.neutral.*.*"
+        ]
+      },
+      "either": "semantic.color.focus.neutral.default.rest",
+      "background": [
+        "fondos-claros",
+        "fondos-fuertes"
       ]
     }
   ],
   "exempt": {
     "$description": "Colores que se comprueban y aparecen en el informe, pero no tienen mínimo de contraste (WCAG 1.4.3 y 1.4.11).",
-    "include": ["semantic.color.*.*.*.disabled", "semantic.color.border.neutral.default.*"],
+    "include": [
+      "semantic.color.*.*.*.disabled",
+      "semantic.color.border.neutral.default.*"
+    ],
     "reasons": {
       "semantic.color.*.*.*.disabled": "Desactivado: WCAG no pide contraste a lo que no se puede usar.",
       "semantic.color.border.neutral.default.*": "Borde decorativo: solo separa zonas. Para los campos se usa border.neutral.strong."

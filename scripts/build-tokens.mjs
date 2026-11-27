@@ -202,6 +202,31 @@ for (const m of mapped.filter((x) => x.typography && x.category !== 'font-size')
   }
 }
 
+/**
+ * Anillo de foco doble (docs/accesibilidad.md, regla 2): una utilidad focus-ring-* por
+ * cada color de foco (menos el neutro). Por dentro, pegado al componente, un anillo
+ * neutro (el color del fondo de cada modo) que lo separa del anillo de color; por fuera,
+ * el anillo de color. Los dos miden el grosor focus.
+ */
+function focusRings() {
+  return mapped
+    .filter((m) => m.type === 'color' && m.path.includes('focus') && !m.path.includes('neutral'))
+    .map((m) => {
+      const base = m.path[0] === 'semantic' ? ['semantic'] : ['component', m.path[1]]
+      const width = byPath.get([...base, 'border-width', 'focus'].join('.'))
+      const outer = byPath.get([...base, ...(m.path[0] === 'semantic' ? ['color'] : []), 'focus', 'neutral', 'default', 'rest'].join('.'))
+      if (!width || !outer) throw new Error(`Falta el grosor o el anillo exterior del foco para ${m.path.join('.')}`)
+      const name = `focus-ring-${m.key.replace(/(^|-)focus-/, '$1')}`
+      const w = `var(${varName(width.path)})`
+      return {
+        token: m,
+        name,
+        css: `@utility ${name} {\n  outline: ${w} solid var(${varName(m.path)});\n  outline-offset: ${w};\n  box-shadow: 0 0 0 ${w} var(${varName(outer.path)});\n}`,
+      }
+    })
+}
+for (const ring of focusRings()) ring.token.cls = `${ring.name}, ${ring.token.cls}`
+
 function checkCollisions() {
   const seen = new Map()
   for (const m of mapped) {
@@ -250,12 +275,12 @@ function buildThemeCss() {
     own.filter((m) => m.theme && !m.typography && m.type !== 'color').forEach((m) => lines.push(`  ${m.theme}: ${value(m)};`))
   }
 
-  const utilities = mapped
+  const utilities = [...focusRings().map((r) => r.css), ...mapped
     .filter((m) => m.utility === 'border-width')
     .flatMap((m) => [
       `@utility border-width-${m.key} {\n  border-width: var(${varName(m.path)});\n}`,
       `@utility outline-width-${m.key} {\n  outline-style: solid;\n  outline-width: var(${varName(m.path)});\n}`,
-    ])
+    ])]
 
   return `/*
  * ARCHIVO GENERADO por scripts/build-tokens.mjs a partir de tokens/tokens.json.
@@ -271,7 +296,7 @@ function buildThemeCss() {
 @theme inline {${lines.join('\n')}
 }
 
-/* Grosores de borde: Tailwind no tiene variables de tema para ellos, así que son utilidades propias. */
+/* Anillos de foco doble y grosores de borde: Tailwind no tiene variables de tema para ellos, así que son utilidades propias. */
 ${utilities.join('\n\n')}
 `
 }
@@ -307,7 +332,8 @@ La clase es **la utilidad de Tailwind + el nombre del token**, sin las partes \`
 | Color de texto | \`text-\` | \`semantic.color.text.neutral.subtle.rest\` → \`text-text-neutral-subtle\` |
 | Color de icono | \`text-\` (para el icono, \`[&_svg]:text-…\`) | \`semantic.color.icon.neutral.default.rest\` → \`text-icon-neutral\` |
 | Color de borde | \`border-\` | \`semantic.color.border.neutral.strong.rest\` → \`border-border-neutral-strong\` |
-| Color de foco | \`outline-\` | \`semantic.color.focus.primary.default.rest\` → \`outline-focus-primary\` |
+| Anillo de foco doble | \`focus-ring-\` | \`semantic.color.focus.primary.default.rest\` → \`focus-ring-primary\`: \`focus.neutral\` por dentro, pegado al componente, y el anillo de color por fuera, los dos con el grosor \`border-width.focus\` |
+| Color de foco suelto | \`outline-\` | \`semantic.color.focus.primary.default.rest\` → \`outline-focus-primary\` |
 | Estilo de texto (tamaño, altura de línea y peso juntos) | \`text-\` | \`semantic.font-size.heading\` → \`text-heading\` |
 | Espaciado | \`p-\`, \`m-\`, \`gap-\`… | \`semantic.spacing.md\` → \`p-space-md\`, \`gap-space-md\`… |
 | Radio | \`rounded-\` | \`semantic.radius.md\` → \`rounded-radius-md\` |

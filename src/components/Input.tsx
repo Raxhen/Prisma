@@ -64,15 +64,15 @@ export function Input({
         )}
       </label>
 
-      {/* La caja con borde envuelve el icono y el campo, uno al lado del otro. */}
+      {/* La caja con borde envuelve el icono y el campo, uno al lado del otro. Cuando el
+          campo tiene el foco, la caja muestra el anillo de foco doble. */}
       <div
         className={
           `flex items-center gap-input-icon-gap rounded-input-radius border-width-input bg-input-background-neutral px-input-padding-x ` +
-          `focus-within:outline-width-input-focus focus-within:outline-offset-0 ` +
           `has-disabled:cursor-not-allowed has-disabled:bg-input-background-neutral-disabled ` +
           (error
-            ? 'border-input-border-danger focus-within:outline-input-focus-danger'
-            : 'border-input-border-neutral focus-within:outline-input-focus-primary')
+            ? 'border-input-border-danger focus-within:focus-ring-input-danger'
+            : 'border-input-border-neutral focus-within:focus-ring-input-primary')
         }
       >
         {icon && (

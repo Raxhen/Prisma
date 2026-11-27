@@ -74,10 +74,10 @@ const exemptReason = (path) =>
   Object.entries(config.exempt.reasons).find(([pattern]) => matches(path, [pattern]))?.[1]
 
 const results = config.rules.map((rule) => {
-  const combos = rule.pairs ?? [{ foreground: rule.foreground, background: rule.background }]
+  const combos = rule.pairs ?? [{ foreground: rule.foreground, background: rule.background, either: rule.either }]
   const pairs = combos.flatMap((combo) =>
     select(combo.foreground).flatMap((fg) =>
-      groups[combo.background].map((bg) => {
+      [combo.background].flat().flatMap((g) => groups[g]).map((bg) => {
         const strict = Object.entries(rule.stricter ?? {}).find(([pattern]) => matches(fg, [pattern]))
         const minimum = strict ? strict[1] : config.minimums[rule.kind]
         const exempt = matches(fg, config.exempt.include) ? exemptReason(fg) : null
@@ -85,11 +85,13 @@ const results = config.rules.map((rule) => {
           MODES.map((mode) => {
             const a = resolve(fg, mode).hex
             const b = resolve(bg, mode).hex
-            const ratio = contrast(a, b)
+            // Con "either", basta con que uno de los dos colores (los dos anillos del foco) llegue al mínimo.
+            const other = combo.either ? contrast(resolve(combo.either, mode).hex, b) : null
+            const ratio = Math.max(contrast(a, b), other ?? 0)
             return [mode, { ratio, fg: a, bg: b, ok: exempt ? null : ratio >= minimum }]
           }),
         )
-        return { fg, bg, group: combo.background, minimum, exempt, modes }
+        return { fg: combo.either ? `${fg} + ${combo.either}` : fg, bg, group: combo.background, minimum, exempt, modes }
       }),
     ),
   )
@@ -98,7 +100,7 @@ const results = config.rules.map((rule) => {
 
 // ------------------------------------------------------------ informe
 
-const short = (p) => p.replace('semantic.color.', '')
+const short = (p) => p.replaceAll('semantic.color.', '')
 const num = (n) => n.toFixed(2).replace('.', ',')
 const cell = (m) => (m.ok === null ? `${num(m.ratio)}:1 · exento` : `${num(m.ratio)}:1 ${m.ok ? '✅' : '❌'}`)
 const allPairs = results.flatMap((r) => r.pairs.map((p) => ({ ...p, rule: r.rule })))
@@ -151,7 +153,7 @@ const md = `# Contraste de los colores
 
 > **Archivo generado** por \`scripts/contrast.mjs\` a partir de \`tokens/tokens.json\` y \`tokens/contrast-pairs.json\`. No lo edites a mano: cambia las reglas o los tokens y ejecuta \`npm run contrast\`.
 
-Cada regla de \`tokens/contrast-pairs.json\` junta un tipo de color (por su nombre) con un grupo de fondos. De ahí salen todas las parejas, y cada una se comprueba en **modo claro** y en **modo oscuro**. Los mínimos son 4,5:1 para el texto y 3:1 para iconos, bordes y foco, y 7:1 para \`text.neutral.strong\`, el de la información médica (ADR-001, P3, y \`docs/accesibilidad.md\`).
+Cada regla de \`tokens/contrast-pairs.json\` junta un tipo de color (por su nombre) con un grupo de fondos. De ahí salen todas las parejas, y cada una se comprueba en **modo claro** y en **modo oscuro**. Los mínimos son 4,5:1 para el texto y 3:1 para iconos, bordes y foco (en el anillo de foco doble basta con que uno de sus dos anillos llegue a 3:1), y 7:1 para \`text.neutral.strong\`, el de la información médica (ADR-001, P3, y \`docs/accesibilidad.md\`).
 
 **Exento** quiere decir que la pareja se mide, pero no tiene mínimo: los elementos desactivados y el borde decorativo.
 

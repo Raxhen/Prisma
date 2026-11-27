@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, within } from 'storybook/test'
+import { expectFocusRing } from '../stories/teclado'
 import { IconMail, IconSearch } from '@tabler/icons-react'
 import { Input } from './Input'
 
@@ -66,5 +68,33 @@ export const Desactivado: Story = {
     label: 'Número de paciente',
     defaultValue: 'FH-00231',
     disabled: true,
+  },
+}
+
+/**
+ * Prueba de teclado: recorre los campos con Tab, comprueba que se ve el anillo de
+ * foco doble en la caja del campo y que se puede escribir. El desactivado se salta.
+ */
+export const Teclado: Story = {
+  render: () => (
+    <div className="flex flex-col gap-space-lg">
+      <Input label="Nombre" />
+      <Input label="Fecha de nacimiento" error="Esta fecha no existe." />
+      <Input label="Número de paciente" defaultValue="FH-00231" disabled />
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    for (const name of ['Nombre', 'Fecha de nacimiento']) {
+      await userEvent.tab()
+      const field = canvas.getByRole('textbox', { name })
+      await expect(field).toHaveFocus()
+      // El anillo se pinta en la caja que envuelve el campo y su icono.
+      await expectFocusRing(field.parentElement!)
+    }
+    await userEvent.keyboard('31/12/1990')
+    await expect(canvas.getByRole('textbox', { name: 'Fecha de nacimiento' })).toHaveValue('31/12/1990')
+    await userEvent.tab()
+    await expect(canvas.getByRole('textbox', { name: 'Número de paciente' })).not.toHaveFocus()
   },
 }
