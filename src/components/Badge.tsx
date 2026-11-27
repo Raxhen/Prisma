@@ -3,13 +3,19 @@ import type { HTMLAttributes, ReactNode } from 'react'
 type BadgeVariant = 'neutral' | 'info' | 'success' | 'warning' | 'danger'
 type BadgeSize = 'sm' | 'md'
 
-export interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
+export interface BadgeProps
+  extends Omit<HTMLAttributes<HTMLSpanElement>, 'children'> {
   /** Color según el significado: informativo, correcto, aviso o problema. */
   variant?: BadgeVariant
   /** Tamaño de la etiqueta. */
   size?: BadgeSize
-  /** Icono que aparece antes del texto. */
+  /** Icono que aparece antes del texto. Es decorativo: el lector de pantalla no lo lee. */
   icon?: ReactNode
+  /**
+   * Texto de la etiqueta. Es obligatorio: el color y el icono solos no dicen nada a un
+   * lector de pantalla (docs/accesibilidad.md, regla 3).
+   */
+  children: ReactNode
 }
 
 // Todas las clases de color, espaciado, radio, borde y tipografía salen de los tokens
@@ -42,7 +48,7 @@ export function Badge({
       className={`inline-flex items-center gap-badge-gap rounded-badge-radius border-width-badge whitespace-nowrap ${variants[variant]} ${sizes[size]} ${className}`}
       {...rest}
     >
-      {icon}
+      {icon && <span aria-hidden="true" className="contents">{icon}</span>}
       {children}
     </span>
   )

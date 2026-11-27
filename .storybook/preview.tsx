@@ -76,8 +76,10 @@ const preview: Preview = {
       },
     },
     a11y: {
-      // Muestra los problemas de accesibilidad en la pestaña "Accessibility"
-      test: 'todo',
+      // Complemento de accesibilidad (@storybook/addon-a11y): revisa cada historia y
+      // muestra sus fallos en la pestaña "Accessibility". Con 'error', cada fallo marca
+      // la historia como fallida (con 'todo' solo eran avisos).
+      test: 'error',
     },
   },
   tags: ['autodocs'],
