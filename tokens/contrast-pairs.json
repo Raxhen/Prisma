@@ -1,0 +1,86 @@
+{
+  "$description": "Reglas de contraste de Prisma, por grupos y no pareja a pareja. Cada regla dice qué colores (por patrón de nombre) se comprueban sobre qué grupo de fondos, y con qué mínimo. Un token nuevo entra solo en su regla por su nombre; un fondo nuevo solo hay que añadirlo a su grupo. Lo lee scripts/contrast.mjs (npm run contrast), que escribe el resultado en docs/contraste.md. En los patrones, * vale por una parte cualquiera del nombre.",
+  "minimums": {
+    "text": 4.5,
+    "ui": 3
+  },
+  "groups": {
+    "fondos-claros": {
+      "$description": "Fondos que llevan encima texto e iconos normales (no inverse).",
+      "include": [
+        "semantic.color.background.neutral.default.*",
+        "semantic.color.background.neutral.subtle.*",
+        "semantic.color.background.neutral.strong.*",
+        "semantic.color.background.*.subtle.*"
+      ]
+    },
+    "fondos-fuertes": {
+      "$description": "Fondos que llevan encima texto e iconos inverse: los de color fuerte y el neutro invertido, con sus estados.",
+      "include": [
+        "semantic.color.background.primary.default.*",
+        "semantic.color.background.info.default.*",
+        "semantic.color.background.success.default.*",
+        "semantic.color.background.warning.default.*",
+        "semantic.color.background.danger.default.*",
+        "semantic.color.background.neutral.inverse.*"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "name": "Texto normal sobre fondos claros",
+      "kind": "text",
+      "foreground": {
+        "include": ["semantic.color.text.*.*.*"],
+        "exclude": ["semantic.color.text.*.inverse.*"]
+      },
+      "background": "fondos-claros",
+      "stricter": {
+        "semantic.color.text.neutral.strong.*": 7
+      }
+    },
+    {
+      "name": "Texto inverse sobre fondos fuertes",
+      "kind": "text",
+      "foreground": {
+        "include": ["semantic.color.text.*.inverse.*"]
+      },
+      "background": "fondos-fuertes"
+    },
+    {
+      "name": "Bordes y foco sobre fondos claros",
+      "kind": "ui",
+      "foreground": {
+        "include": ["semantic.color.border.*.*.*", "semantic.color.focus.*.*.*"]
+      },
+      "background": "fondos-claros"
+    },
+    {
+      "name": "Iconos como el texto: normales sobre claros e inverse sobre fuertes",
+      "kind": "ui",
+      "pairs": [
+        {
+          "foreground": {
+            "include": ["semantic.color.icon.*.*.*"],
+            "exclude": ["semantic.color.icon.*.inverse.*"]
+          },
+          "background": "fondos-claros"
+        },
+        {
+          "foreground": {
+            "include": ["semantic.color.icon.*.inverse.*"]
+          },
+          "background": "fondos-fuertes"
+        }
+      ]
+    }
+  ],
+  "exempt": {
+    "$description": "Colores que se comprueban y aparecen en el informe, pero no tienen mínimo de contraste (WCAG 1.4.3 y 1.4.11).",
+    "include": ["semantic.color.*.*.*.disabled", "semantic.color.border.neutral.default.*"],
+    "reasons": {
+      "semantic.color.*.*.*.disabled": "Desactivado: WCAG no pide contraste a lo que no se puede usar.",
+      "semantic.color.border.neutral.default.*": "Borde decorativo: solo separa zonas. Para los campos se usa border.neutral.strong."
+    }
+  }
+}
