@@ -281,3 +281,11 @@ Vuelve a generar tres archivos que **no se editan a mano**:
 
 Para comprobar que están al día sin escribirlos, ejecuta `npm run tokens -- --check`. Si alguno no lo está, el comando termina con un error.
 
+Después, comprueba el contraste:
+
+```bash
+npm run contrast
+```
+
+Lee las reglas de `tokens/contrast-pairs.json`, genera todas las parejas de color y fondo que salen de ellas, y escribe el contraste de cada una, en modo claro y oscuro, en `docs/contraste.md`. Un color nuevo entra solo en su regla por su nombre. Un fondo nuevo hay que añadirlo a su grupo (`fondos-claros` o `fondos-fuertes`) en `contrast-pairs.json`.
+
