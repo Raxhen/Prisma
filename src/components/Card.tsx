@@ -53,6 +53,12 @@ export interface CardHeaderProps
   icon?: ReactNode
   /** Contenido a la derecha del título, por ejemplo un Badge. */
   action?: ReactNode
+  /**
+   * Nivel del título: 2 para `h2`, 3 para `h3`… Elige el que toque para que los
+   * encabezados de la pantalla vayan en orden (docs/accesibilidad.md, regla 4): por
+   * ejemplo, 2 si la tarjeta va justo debajo del `h1`. El tamaño de la letra no cambia.
+   */
+  headingLevel?: 2 | 3 | 4 | 5 | 6
 }
 
 export function CardHeader({
@@ -60,9 +66,11 @@ export function CardHeader({
   description,
   icon,
   action,
+  headingLevel = 3,
   className = '',
   ...rest
 }: CardHeaderProps) {
+  const Heading = `h${headingLevel}` as const
   return (
     // flex-wrap: si no hay sitio, la etiqueta de la derecha (action) baja a otra línea
     // en vez de montarse sobre el título.
@@ -75,9 +83,9 @@ export function CardHeader({
       {/* basis-24: el texto necesita al menos 6rem; hyphens-auto y wrap-anywhere: las palabras
           largas se parten (con guion si se puede) en vez de salirse de la tarjeta. */}
       <div className="min-w-0 flex-1 basis-24 hyphens-auto">
-        <h3 className="text-card-title wrap-anywhere text-card-title-text-neutral">
+        <Heading className="text-card-title wrap-anywhere text-card-title-text-neutral">
           {title}
-        </h3>
+        </Heading>
         {description && (
           <p className="mt-space-2xs text-card-description wrap-anywhere text-card-description-text-neutral">
             {description}

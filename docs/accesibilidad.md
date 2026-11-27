@@ -165,6 +165,11 @@ Cada componente interactivo tiene un nombre que el lector puede leer. Sale de un
 <IconPill /> Ibuprofeno 600 mg
 ```
 
+> **Estado en Prisma:**
+> - **Encabezados:** el título de `CardHeader` es un `h3` si no se dice otra cosa. Con `headingLevel` (de 2 a 6) se elige el nivel que toca en cada pantalla, sin cambiar el tamaño de la letra. La historia **Card → NivelDelTitulo** lo comprueba.
+> - **Iconos:** los de Button, Input, Card y Badge son decorativos, porque siempre van con un texto o un `aria-label`, así que quedan ocultos al lector.
+> - **Página Tailwind:** cada muestra de color tiene su nombre como texto alternativo, y los dibujos que repiten un valor ya escrito (barras de espaciado, cuadrados de radios, iconos con su nombre debajo) quedan ocultos.
+
 **Checklist:**
 
 - [ ] Cada pantalla tiene un solo `h1`.

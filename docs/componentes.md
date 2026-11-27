@@ -2,12 +2,12 @@
 
 Una fila por componente de `src/components/`. Cuando añadas o cambies un componente, actualiza esta tabla en la misma PR.
 
-| Componente | Storybook | Solo tokens | Teclado | Nombre accesible |
-|---|---|---|---|---|
-| Badge | ✅ | ✅ | ✅ | ✅ |
-| Button | ✅ | ✅ | ✅ | ✅ |
-| Card | ✅ | ✅ | ✅ | ✅ |
-| Input | ✅ | ✅ | ✅ | ✅ |
+| Componente | Storybook | Solo tokens | Teclado | Nombre accesible | Accesibilidad |
+|---|---|---|---|---|---|
+| Badge | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Button | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Card | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Input | ✅ | ✅ | ✅ | ✅ | ✅ |
 
 **Solo tokens** quiere decir que el componente no usa colores de la paleta de Tailwind (`bg-blue-600`…) ni sus escalas de texto, espaciado, radio, borde o sombra (`text-sm`, `p-4`, `rounded-lg`…). Todo eso sale de sus tokens de componente. Las clases de cada token están en `docs/tokens.md`.
 
@@ -16,3 +16,12 @@ Todavía quedan sin token, porque no existen tokens para ellos, los tamaños de 
 **Teclado** quiere decir que el componente cumple la regla 2 de `docs/accesibilidad.md` y que su historia **Teclado** de Storybook pasa: recorre con Tab sus partes interactivas, en orden, y comprueba que se ve el anillo de foco doble. Si el componente no es interactivo, como Card o Badge, comprueba que Tab no se para en él.
 
 **Nombre accesible** quiere decir que el componente cumple la regla 3 de `docs/accesibilidad.md`: todo lo interactivo tiene un nombre que lee el lector de pantalla (su texto, su `label` o un `aria-label`), TypeScript da error si falta, y los iconos decorativos quedan ocultos al lector.
+
+**Accesibilidad** quiere decir que el componente pasa las **cuatro reglas** de `docs/accesibilidad.md`:
+
+1. **Contraste:** sus colores salen de tokens que pasan `npm run contrast` (`docs/contraste.md`).
+2. **Navegación por teclado:** columna **Teclado**.
+3. **Nombre accesible:** columna **Nombre accesible**.
+4. **Lectura con lector de pantalla:** los encabezados se pueden poner en orden (el título de `CardHeader` elige su nivel con `headingLevel`), y los iconos decorativos quedan ocultos al lector.
+
+Además, el panel **Accessibility** de Storybook no marca fallos en ninguna de sus historias, ni en modo claro ni en modo oscuro.

@@ -171,3 +171,35 @@ export const Teclado: Story = {
     await expect(canvas.getByText('Próxima')).not.toHaveFocus()
   },
 }
+
+/**
+ * Nivel del título. El título de `CardHeader` es un `h3` si no se dice otra cosa.
+ * Con `headingLevel`, cada tarjeta encaja en el orden de encabezados de su pantalla
+ * (docs/accesibilidad.md, regla 4). Aquí va justo debajo de un `h1`, así que es un
+ * `h2`. El tamaño de la letra no cambia. La prueba comprueba el nivel y que el icono
+ * queda oculto al lector.
+ */
+export const NivelDelTitulo: Story = {
+  decorators: narrow,
+  render: (args) => (
+    <div>
+      <h1 className="mb-space-md text-heading text-text-neutral">Mis citas</h1>
+      <Card {...args}>
+        <CardHeader
+          headingLevel={2}
+          icon={<IconCalendarEvent />}
+          title="Revisión del dentista"
+          description="Martes 24, 10:30"
+          action={<Badge variant="info">Próxima</Badge>}
+        />
+      </Card>
+    </div>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    const title = canvas.getByRole('heading', { level: 2, name: 'Revisión del dentista' })
+    await expect(title).toBeInTheDocument()
+    await expect(canvasElement.querySelector('svg')?.closest('[aria-hidden="true"]')).not.toBeNull()
+  },
+}
+
