@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, userEvent, within } from 'storybook/test'
+import { expectFocusRing } from '../stories/teclado'
 import { IconCalendarEvent, IconChartBar, IconPill } from '@tabler/icons-react'
 import { Badge } from './Badge'
 import { Button } from './Button'
@@ -133,4 +135,39 @@ export const EspacioEstrecho: Story = {
       </div>
     </div>
   ),
+}
+
+/**
+ * Prueba de teclado: la tarjeta no es interactiva, así que Tab no se para en ella
+ * ni en su etiqueta: va directo a los botones del pie, en orden, y se ve el foco.
+ */
+export const Teclado: Story = {
+  args: { variant: 'elevated' },
+  decorators: narrow,
+  render: (args) => (
+    <Card {...args}>
+      <CardHeader
+        icon={<IconCalendarEvent />}
+        title="Revisión del dentista"
+        description="Martes 24, 10:30"
+        action={<Badge variant="info">Próxima</Badge>}
+      />
+      <CardFooter>
+        <Button variant="secondary" size="sm">
+          Cambiar
+        </Button>
+        <Button size="sm">Confirmar</Button>
+      </CardFooter>
+    </Card>
+  ),
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement)
+    for (const name of ['Cambiar', 'Confirmar']) {
+      await userEvent.tab()
+      const button = canvas.getByRole('button', { name })
+      await expect(button).toHaveFocus()
+      await expectFocusRing(button)
+    }
+    await expect(canvas.getByText('Próxima')).not.toHaveFocus()
+  },
 }

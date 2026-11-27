@@ -206,6 +206,7 @@
   --semantic-color-border-warning-default-rest: var(--primitive-color-orange-700);
   --semantic-color-border-danger-default-rest: var(--primitive-color-red-600);
   --semantic-color-focus-primary-default-rest: var(--primitive-color-brand-700);
+  --semantic-color-focus-neutral-default-rest: var(--primitive-color-gray-50);
   --semantic-font-size-display: var(--primitive-font-size-5xl);
   --semantic-font-size-heading: var(--primitive-font-size-3xl);
   --semantic-font-size-title: var(--primitive-font-size-xl);
@@ -279,6 +280,7 @@
   --component-button-border-secondary-default-rest: var(--semantic-color-border-neutral-strong-rest);
   --component-button-border-secondary-default-disabled: var(--semantic-color-border-neutral-default-rest);
   --component-button-focus-primary-default-rest: var(--semantic-color-focus-primary-default-rest);
+  --component-button-focus-neutral-default-rest: var(--semantic-color-focus-neutral-default-rest);
   --component-button-spacing-padding-x-sm: var(--semantic-spacing-md);
   --component-button-spacing-padding-x-md: var(--semantic-spacing-lg);
   --component-button-spacing-padding-x-lg: var(--semantic-spacing-xl);
@@ -305,6 +307,7 @@
   --component-input-border-danger-default-rest: var(--semantic-color-border-danger-default-rest);
   --component-input-focus-primary-default-rest: var(--semantic-color-focus-primary-default-rest);
   --component-input-focus-danger-default-rest: var(--semantic-color-border-danger-default-rest);
+  --component-input-focus-neutral-default-rest: var(--semantic-color-focus-neutral-default-rest);
   --component-input-placeholder-text-neutral-default-rest: var(--semantic-color-text-neutral-subtle-rest);
   --component-input-label-text-neutral-default-rest: var(--semantic-color-text-neutral-default-rest);
   --component-input-label-font-size-default: var(--semantic-font-size-label);
@@ -452,4 +455,5 @@
   --semantic-color-border-warning-default-rest: var(--primitive-color-orange-500);
   --semantic-color-border-danger-default-rest: var(--primitive-color-red-500);
   --semantic-color-focus-primary-default-rest: var(--primitive-color-brand-400);
+  --semantic-color-focus-neutral-default-rest: var(--primitive-color-gray-950);
 }

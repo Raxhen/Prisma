@@ -69,6 +69,7 @@
   --color-border-warning: var(--semantic-color-border-warning-default-rest);
   --color-border-danger: var(--semantic-color-border-danger-default-rest);
   --color-focus-primary: var(--semantic-color-focus-primary-default-rest);
+  --color-focus-neutral: var(--semantic-color-focus-neutral-default-rest);
 
   /* Estilos de texto semánticos → text-display, text-heading, text-body… */
   --text-display: var(--semantic-font-size-display);
@@ -149,6 +150,7 @@
   --color-button-border-secondary: var(--component-button-border-secondary-default-rest);
   --color-button-border-secondary-disabled: var(--component-button-border-secondary-default-disabled);
   --color-button-focus-primary: var(--component-button-focus-primary-default-rest);
+  --color-button-focus-neutral: var(--component-button-focus-neutral-default-rest);
   --text-button-sm: var(--component-button-font-size-sm);
   --text-button-sm--line-height: var(--component-button-line-height-sm);
   --text-button-sm--font-weight: var(--component-button-font-weight-default);
@@ -177,6 +179,7 @@
   --color-input-border-danger: var(--component-input-border-danger-default-rest);
   --color-input-focus-primary: var(--component-input-focus-primary-default-rest);
   --color-input-focus-danger: var(--component-input-focus-danger-default-rest);
+  --color-input-focus-neutral: var(--component-input-focus-neutral-default-rest);
   --color-input-placeholder-text-neutral: var(--component-input-placeholder-text-neutral-default-rest);
   --color-input-label-text-neutral: var(--component-input-label-text-neutral-default-rest);
   --color-input-required-text-danger: var(--component-input-required-text-danger-default-rest);
@@ -266,7 +269,31 @@
   --radius-badge-radius: var(--component-badge-radius-default);
 }
 
-/* Grosores de borde: Tailwind no tiene variables de tema para ellos, así que son utilidades propias. */
+/* Anillos de foco doble y grosores de borde: Tailwind no tiene variables de tema para ellos, así que son utilidades propias. */
+@utility focus-ring-primary {
+  outline: var(--semantic-border-width-focus) solid var(--semantic-color-focus-primary-default-rest);
+  outline-offset: var(--semantic-border-width-focus);
+  box-shadow: 0 0 0 var(--semantic-border-width-focus) var(--semantic-color-focus-neutral-default-rest);
+}
+
+@utility focus-ring-button-primary {
+  outline: var(--component-button-border-width-focus) solid var(--component-button-focus-primary-default-rest);
+  outline-offset: var(--component-button-border-width-focus);
+  box-shadow: 0 0 0 var(--component-button-border-width-focus) var(--component-button-focus-neutral-default-rest);
+}
+
+@utility focus-ring-input-primary {
+  outline: var(--component-input-border-width-focus) solid var(--component-input-focus-primary-default-rest);
+  outline-offset: var(--component-input-border-width-focus);
+  box-shadow: 0 0 0 var(--component-input-border-width-focus) var(--component-input-focus-neutral-default-rest);
+}
+
+@utility focus-ring-input-danger {
+  outline: var(--component-input-border-width-focus) solid var(--component-input-focus-danger-default-rest);
+  outline-offset: var(--component-input-border-width-focus);
+  box-shadow: 0 0 0 var(--component-input-border-width-focus) var(--component-input-focus-neutral-default-rest);
+}
+
 @utility border-width-default {
   border-width: var(--semantic-border-width-default);
 }

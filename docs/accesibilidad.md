@@ -56,12 +56,14 @@ En Prisma los colores salen de tokens que ya cumplen estos mínimos en modo clar
 
 **El orden** en que se recorren los elementos con Tab tiene que ser **lógico**: el mismo en que se leen, de arriba abajo y de izquierda a derecha.
 
-**El foco tiene que verse siempre.** El foco es la marca que dice en qué elemento estás. En Prisma es un **anillo doble**:
+**El foco tiene que verse siempre.** El foco es la marca que dice en qué elemento estás. En Prisma es un **anillo doble**, los dos anillos de 2 px:
 
-- **por dentro, un anillo de color** (token `focus.primary`, de 2 px);
-- **por fuera, un anillo blanco.**
+- **por dentro, pegado al componente, un anillo neutro** (token `focus.neutral`). Es blanco en modo claro y casi negro en modo oscuro: el color del fondo de cada modo;
+- **por fuera, un anillo de color** (token `focus.primary`).
 
-Con dos anillos, uno de los dos destaca siempre al menos 3:1, sobre cualquier fondo: el de color sobre los fondos claros, y el blanco sobre los oscuros o sobre el propio color del botón.
+Con dos anillos, uno de los dos destaca siempre al menos 3:1 sobre cualquier fondo: el de color sobre los fondos claros, y el neutro sobre los fuertes. Además, el neutro separa el anillo de color del componente, para que se vea también en los componentes de su mismo color, como el botón principal.
+
+En el código, el anillo doble se pone con una sola clase, `focus-ring-*`, que sale de los tokens: por ejemplo, `focus-visible:focus-ring-button-primary`.
 
 **Y además, con el dedo:** todo lo que se pulsa mide al menos **44 × 44 px**, para que se pueda tocar sin fallar, también con temblor o con poca precisión (ADR-001 P3).
 
@@ -88,11 +90,12 @@ Con dos anillos, uno de los dos destaca siempre al menos 3:1, sobre cualquier fo
 - [ ] Recorriendo la pantalla solo con Tab se llega a todo lo que se puede pulsar o rellenar.
 - [ ] El orden de Tab sigue el orden de lectura.
 - [ ] Enter y Espacio pulsan botones; Esc cierra lo que se haya abierto.
-- [ ] En cada elemento con foco se ve el anillo doble, en modo claro y oscuro.
+- [ ] En cada elemento con foco se ve el anillo doble (`focus-ring-*`), en modo claro y oscuro.
+- [ ] El componente tiene una historia **Teclado** en Storybook, y pasa.
 - [ ] Nada que se pulse mide menos de 44 × 44 px.
 - [ ] Para pulsar se usan `<button>`, `<a>` o los componentes de Prisma, nunca un `<div>` con `onClick`.
 
-> **Estado en Prisma:** hoy Button e Input marcan el foco con **un solo anillo de color**. Falta añadirles el anillo blanco de fuera.
+> **Estado en Prisma:** Button e Input tienen el anillo doble. Cada componente tiene en Storybook una historia **Teclado** que lo recorre con Tab y comprueba que se ve el foco.
 
 ---
 

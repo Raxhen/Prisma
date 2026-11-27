@@ -1,4 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite'
+import { expect, fn, userEvent, within } from 'storybook/test'
+import { expectFocusRing } from '../stories/teclado'
 import { IconCheck, IconPlus, IconTrash } from '@tabler/icons-react'
 import { Button } from './Button'
 
@@ -100,4 +102,41 @@ export const TextoLargo: Story = {
 
 export const Desactivado: Story = {
   args: { disabled: true },
+}
+
+/**
+ * Prueba de teclado: recorre los botones con Tab, comprueba que se ve el anillo de
+ * foco doble y que Enter y Espacio los pulsan. El desactivado se salta.
+ */
+export const Teclado: Story = {
+  args: { onClick: fn() },
+  render: (args) => (
+    <div className="flex flex-wrap items-center gap-space-md">
+      <Button {...args} variant="primary">
+        Primario
+      </Button>
+      <Button variant="secondary">Secundario</Button>
+      <Button variant="ghost">Sutil</Button>
+      <Button variant="danger" iconLeft={<IconTrash />}>
+        Borrar nota
+      </Button>
+      <Button disabled>Desactivado</Button>
+    </div>
+  ),
+  play: async ({ canvasElement, args }) => {
+    const canvas = within(canvasElement)
+    for (const name of ['Primario', 'Secundario', 'Sutil', 'Borrar nota']) {
+      await userEvent.tab()
+      const button = canvas.getByRole('button', { name })
+      await expect(button).toHaveFocus()
+      await expectFocusRing(button)
+    }
+    await userEvent.tab()
+    await expect(canvas.getByRole('button', { name: 'Desactivado' })).not.toHaveFocus()
+
+    canvas.getByRole('button', { name: 'Primario' }).focus()
+    await userEvent.keyboard('{Enter}')
+    await userEvent.keyboard(' ')
+    await expect(args.onClick).toHaveBeenCalledTimes(2)
+  },
 }
